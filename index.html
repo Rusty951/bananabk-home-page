@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana Black | Premium Creative Portfolio</title>
+    <!-- Google Fonts: Playfair Display for Serif, Inter for Sans-serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="fade-in home-page">
+    <header id="main-header">
+        <div class="containerHeader">
+            <div class="logo">
+                <a href="./index.html">BANANA BLACK</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="./works/index.html">Works</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="full-bleed">
+            <div class="hero-bg">
+                <!-- 준비된 로컬 이미지 연결 -->
+                <img src="./images/hero-main.png" 
+                     alt="바나나블랙 브랜드 무드 - 시네마틱한 조명 아래 정교한 질감이 돋보이는 프리미엄 제품 사진">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="container hero-container">
+                <div class="hero-text-content">
+                    <h1 class="serif fade-up">본질을 더 선명하게</h1>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- Brand Statement Section -->
+        <section id="brand-statement">
+            <div class="container">
+                <h2 class="statement-large serif reveal">보이지 않는 본질을 시각적으로 증명합니다</h2>
+            </div>
+        </section>
+
+        <!-- Category Showcase Section -->
+        <section id="category-showcase">
+            <div class="container">
+                <div class="category-grid">
+                    <!-- Product (Highlight) -->
+                    <a href="./works/product.html" class="category-card" data-category="product">
+                        <div class="category-visual aspect-16-9">
+                            <img src="./images/works/product-hero-blue.jpg" alt="Product representative image" class="category-image">
+                        </div>
+                        <div class="card-info">
+                            <h2 class="serif">Product</h2>
+                            <p>브랜드 고유의 질감을 포착합니다</p>
+                        </div>
+                    </a>
+                    
+                    <div class="secondary-categories">
+                        <!-- Food -->
+                        <a href="./works/food.html" class="category-card" data-category="food">
+                            <div class="category-visual aspect-4-5">
+                                <img src="./images/works/69349b8668aad.png" alt="Food representative image" class="category-image">
+                            </div>
+                            <div class="card-info">
+                                <h2 class="serif">Food</h2>
+                                <p>미각을 자극하는 감각적인 기록</p>
+                            </div>
+                        </a>
+
+                        <!-- Portrait -->
+                        <a href="./works/portrait.html" class="category-card" data-category="portrait">
+                            <div class="category-visual aspect-4-5">
+                                <img src="./images/works/5cced61b2b11e.jpg" alt="Portrait representative image" class="category-image">
+                            </div>
+                            <div class="card-info">
+                                <h2 class="serif">Portrait</h2>
+                                <p>인물의 본질을 담는 시선</p>
+                            </div>
+                        </a>
+
+                        <!-- Space -->
+                        <a href="./works/space.html" class="category-card" data-category="space">
+                            <div class="category-visual aspect-4-5">
+                                <img src="./images/works/30e31ad2d4316.jpg" alt="Space representative image" class="category-image">
+                            </div>
+                            <div class="card-info">
+                                <h2 class="serif">Space</h2>
+                                <p>공간의 공기까지 포착하는 정밀함</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom CTA -->
+        <section id="bottom-cta">
+            <div class="container">
+                <h3 class="serif reveal">더 깊은 시선이 필요할 때</h3>
+                <a href="./contact.html" class="btn-contact">문의하기</a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer" class="quiet-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="contact-footer-meta">Banana Black · Republic of Korea · Tel 0507-1368-1008 · bananabk2425@naver.com · Business&nbsp;License&nbsp;279-54-00216</p>
+                <p>&copy; 2026 Banana Black. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="./index.html">Home</a>
+                    <a href="./works/product.html">Product</a>
+                    <a href="./works/food.html">Food</a>
+                    <a href="./works/portrait.html">Portrait</a>
+                    <a href="./works/space.html">Space</a>
+                    <a href="./contact.html">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./main.js"></script>
+</body>
+</html>

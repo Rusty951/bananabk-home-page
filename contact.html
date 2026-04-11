@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Banana Black</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="fade-in contact-page">
+
+    <header id="main-header">
+        <div class="containerHeader">
+            <div class="logo">
+                <a href="./index.html">BANANA BLACK</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="./works/index.html">Works</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- 1. Intro -->
+        <section id="contact-intro">
+            <div class="container">
+                <p class="contact-intro-label">PROJECT INQUIRY</p>
+                <h1 class="serif">촬영 문의</h1>
+                <p class="contact-intro-desc">
+                    제품, 브랜드, 공간, 인물, 행사 촬영 문의를 받고 있습니다.<br>
+                    참고 이미지와 목적을 함께 보내주시면 더 빠르게 안내드립니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. Body: Contact Conversion -->
+        <section id="contact-body">
+            <div class="container">
+                <div class="contact-layout">
+
+                    <div class="contact-panel contact-panel--info reveal">
+                        <div class="contact-section-head">
+                            <p class="contact-direct-label">INQUIRY GUIDE</p>
+                            <h2 class="serif contact-side-title">촬영 문의를 간결하게</h2>
+                        </div>
+                        <p class="contact-side-desc">
+                            제품, 브랜드, 공간, 인물, 행사 촬영 문의를 받고 있습니다.
+                            참고 이미지와 목적을 함께 보내주시면 더 빠르게 안내드립니다.
+                        </p>
+                        <div class="contact-direct-actions contact-direct-actions--info">
+                            <a href="mailto:bananabk2425@naver.com" class="contact-text-link">이메일 문의</a>
+                            <a href="tel:050713681008" class="contact-text-link">전화 문의</a>
+                        </div>
+                        <div class="contact-primary-links">
+                            <a href="tel:050713681008" class="contact-primary-link">
+                                <span class="channel-label">Tel</span>
+                                <span class="channel-value">0507-1368-1008</span>
+                            </a>
+                            <a href="mailto:bananabk2425@naver.com" class="contact-primary-link">
+                                <span class="channel-label">Email</span>
+                                <span class="channel-value">bananabk2425@naver.com</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-panel contact-panel--cta reveal">
+                        <p class="contact-direct-label">FASTEST CTA</p>
+                        <h2 class="serif contact-direct-title">카카오톡으로 가장 빠르게</h2>
+                        <p class="contact-direct-desc">
+                            일정, 촬영 대상, 참고 이미지를 남겨주시면 바로 상담 흐름을 잡을 수 있습니다.
+                        </p>
+                        <a href="https://pf.kakao.com/_UxkDbK?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" class="btn-submit contact-kakao-btn">카카오톡으로 빠른 문의</a>
+                    </div>
+
+                    <div class="contact-panel contact-panel--form reveal">
+                        <div class="contact-section-head">
+                            <p class="contact-direct-label">FORMAL INQUIRY</p>
+                            <h2 class="serif contact-direct-title">정식 문의 폼</h2>
+                        </div>
+                        <p class="contact-direct-desc">
+                            핵심 정보만 남겨주세요.
+                        </p>
+
+                        <form class="contact-form" id="contact-form" novalidate>
+                            <div class="contact-form-grid">
+                                <div class="form-group">
+                                    <label for="company">브랜드명 / 업체명</label>
+                                    <input type="text" id="company" name="company" placeholder="브랜드 또는 업체명">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-name">담당자명</label>
+                                    <input type="text" id="contact-name" name="contact_name" placeholder="담당자명" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">이메일</label>
+                                    <input type="email" id="email" name="email" placeholder="이메일" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">연락처</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="연락처" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">문의내용</label>
+                                <textarea id="message" name="message" rows="5" placeholder="촬영 목적, 일정, 참고 이미지 링크 등을 남겨주세요." required></textarea>
+                            </div>
+
+                            <div class="contact-consent-box">
+                                <label class="contact-consent-check" for="privacy-consent">
+                                    <input type="checkbox" id="privacy-consent" name="privacy_consent" required>
+                                    <span class="contact-consent-boxmark" aria-hidden="true"></span>
+                                    <span>개인정보 수집 및 이용에 동의합니다.</span>
+                                </label>
+                                <button type="button" class="contact-consent-toggle" aria-expanded="false" aria-controls="privacy-detail">자세히 보기</button>
+                                <div class="contact-consent-copy" id="privacy-detail" hidden>
+                                    <p>바나나블랙은 촬영 문의 접수 및 상담 진행을 위해 개인정보를 수집·이용합니다.</p>
+                                    <p>• 수집 항목: 업체명(또는 브랜드명), 담당자명, 이메일, 연락처, 문의내용, 첨부파일(선택)</p>
+                                    <p>• 이용 목적: 문의 접수, 상담 진행, 견적 안내, 일정 조율</p>
+                                    <p>• 보유 기간: 문의 접수일로부터 12개월 후 파기</p>
+                                    <p>• 동의 거부 권리: 동의를 거부할 수 있으나, 필수항목 미동의 시 문의 접수가 제한될 수 있습니다.</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-form-submit">
+                                <button type="submit" class="btn-submit">문의 제출</button>
+                                <p class="form-status" id="form-status" aria-live="polite"></p>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="main-footer" class="quiet-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="contact-footer-meta">Banana Black · Republic of Korea · Tel 0507-1368-1008 · bananabk2425@naver.com · Business&nbsp;License&nbsp;279-54-00216</p>
+                <p>&copy; 2026 Banana Black. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="./index.html">Home</a>
+                    <a href="./works/product.html">Product</a>
+                    <a href="./works/food.html">Food</a>
+                    <a href="./works/portrait.html">Portrait</a>
+                    <a href="./works/space.html">Space</a>
+                    <a href="./contact.html">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./main.js"></script>
+</body>
+</html>
