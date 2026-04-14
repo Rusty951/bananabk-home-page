@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
 </head>
-<body class="works-hub-page fade-in">
+<body class="works-hub-page fade-in" data-works-hub="true">
     <header id="main-header">
         <div class="containerHeader">
             <div class="logo">
@@ -18,13 +18,22 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="./index.html" class="active">Works</a></li>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="/works/index.html" class="active">Works</a></li>
                     <li><a href="../about.html">About</a></li>
                     <li><a href="../contact.html">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+    <a href="https://pf.kakao.com/_UxkDbK?utm_source=website&utm_medium=fixed_cta&utm_campaign=global_quick_inquiry" target="_blank" rel="noopener noreferrer" class="fixed-kakao-cta" aria-label="카카오톡 문의">
+        <span class="fixed-kakao-cta__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M12 4.25c-4.56 0-8.25 2.86-8.25 6.38 0 2.25 1.51 4.23 3.78 5.36l-.96 3.76 4.21-2.81c.39.05.79.07 1.22.07 4.55 0 8.25-2.86 8.25-6.38S16.55 4.25 12 4.25Z" fill="currentColor"/>
+            </svg>
+        </span>
+        <span class="fixed-kakao-cta__label">문의</span>
+    </a>
 
     <main>
         <div class="container">
@@ -36,7 +45,7 @@
 
             <section id="works-hub" class="mb-xl">
                 <div class="works-grid">
-                    <a href="./product.html" class="works-card reveal">
+                    <a href="/works/product.html" class="works-card reveal">
                         <div class="image-area">
                             <img src="../images/works/product-hero-blue.jpg" alt="Product hero" class="works-card-image">
                         </div>
@@ -45,7 +54,7 @@
                         </div>
                     </a>
 
-                    <a href="./food.html" class="works-card reveal">
+                    <a href="/works/food.html" class="works-card reveal">
                         <div class="image-area">
                             <img src="../images/works/69349b8668aad.png" alt="Food hero" class="works-card-image">
                         </div>
@@ -54,16 +63,16 @@
                         </div>
                     </a>
 
-                    <a href="./portrait.html" class="works-card reveal">
+                    <a href="/works/dessert.html" class="works-card reveal">
                         <div class="image-area">
-                            <img src="../images/works/5cced61b2b11e.jpg" alt="Portrait hero" class="works-card-image">
+                            <img src="../images/works/8ca1cc9bc0acb.jpg" alt="Dessert hero" class="works-card-image">
                         </div>
                         <div class="text-area">
-                            <h2 class="serif works-card-title">Portrait</h2>
+                            <h2 class="serif works-card-title">Dessert</h2>
                         </div>
                     </a>
 
-                    <a href="./space.html" class="works-card reveal">
+                    <a href="/works/space.html" class="works-card reveal">
                         <div class="image-area">
                             <img src="../images/works/30e31ad2d4316.jpg" alt="Space hero" class="works-card-image">
                         </div>
@@ -71,6 +80,27 @@
                             <h2 class="serif works-card-title">Space</h2>
                         </div>
                     </a>
+
+                    <a href="/works/portrait.html" class="works-card works-card--portrait reveal">
+                        <div class="image-area">
+                            <img src="../images/works/5cced61b2b11e.jpg" alt="Portrait hero" class="works-card-image">
+                        </div>
+                        <div class="text-area">
+                            <h2 class="serif works-card-title">Portrait</h2>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section id="works-hub-cta" class="works-closing-cta reveal">
+                <div class="works-cta-shell">
+                    <p class="works-cta-label">Project Inquiry</p>
+                    <h2 class="serif works-cta-title">비슷한 무드의 촬영이 필요하다면</h2>
+                    <p class="works-cta-copy">가장 빠른 문의는 카카오톡입니다.<br>원하는 카테고리와 참고 이미지를 함께 보내주세요.</p>
+                    <div class="works-cta-actions">
+                        <a href="https://pf.kakao.com/_UxkDbK?utm_source=website&utm_medium=cta&utm_campaign=works_hub" target="_blank" rel="noopener noreferrer" class="btn-contact btn-cta-primary">카카오톡 문의</a>
+                        <a href="../contact.html" class="btn-contact btn-cta-secondary">정식 문의 남기기</a>
+                    </div>
                 </div>
             </section>
         </div>
@@ -81,18 +111,25 @@
             <div class="footer-bottom">
                 <p class="contact-footer-meta">Banana Black · Republic of Korea · Tel 0507-1368-1008 · bananabk2425@naver.com · Business&nbsp;License&nbsp;279-54-00216</p>
                 <p>&copy; 2026 Banana Black. All rights reserved.</p>
+                <div class="footer-social-links" aria-label="Social links">
+                    <a href="https://www.instagram.com/bananabk_studio/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://blog.naver.com/bananabk2425" target="_blank" rel="noopener noreferrer">Blog</a>
+                </div>
                 <div class="social-links">
                     <a href="../index.html">Home</a>
-                    <a href="./product.html">Product</a>
-                    <a href="./food.html">Food</a>
-                    <a href="./portrait.html">Portrait</a>
-                    <a href="./space.html">Space</a>
+                    <a href="/works/product.html">Product</a>
+                    <a href="/works/food.html">Food</a>
+                    <a href="/works/dessert.html">Dessert</a>
+                    <a href="/works/space.html">Space</a>
+                    <a href="/works/portrait.html">Portrait</a>
                     <a href="../contact.html">Contact</a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <script src="../public-config.js"></script>
+    <script src="./works-data.js"></script>
     <script src="../main.js"></script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+project_id = "bananabk-home-page"
+
+[functions.submit-contact-inquiry]
+verify_jwt = false
+
+[functions.upload-work-image]
+verify_jwt = false
+
+[functions.manage-work-images]
+verify_jwt = false

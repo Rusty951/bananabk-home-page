@@ -18,13 +18,22 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="./works/index.html">Works</a></li>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="/works/index.html">Works</a></li>
                     <li><a href="./about.html">About</a></li>
                     <li><a href="./contact.html" class="active">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+    <a href="https://pf.kakao.com/_UxkDbK?utm_source=website&utm_medium=fixed_cta&utm_campaign=global_quick_inquiry" target="_blank" rel="noopener noreferrer" class="fixed-kakao-cta" aria-label="카카오톡 문의">
+        <span class="fixed-kakao-cta__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M12 4.25c-4.56 0-8.25 2.86-8.25 6.38 0 2.25 1.51 4.23 3.78 5.36l-.96 3.76 4.21-2.81c.39.05.79.07 1.22.07 4.55 0 8.25-2.86 8.25-6.38S16.55 4.25 12 4.25Z" fill="currentColor"/>
+            </svg>
+        </span>
+        <span class="fixed-kakao-cta__label">문의</span>
+    </a>
 
     <main>
 
@@ -34,8 +43,7 @@
                 <p class="contact-intro-label">PROJECT INQUIRY</p>
                 <h1 class="serif">촬영 문의</h1>
                 <p class="contact-intro-desc">
-                    제품, 브랜드, 공간, 인물, 행사 촬영 문의를 받고 있습니다.<br>
-                    참고 이미지와 목적을 함께 보내주시면 더 빠르게 안내드립니다.
+                    카카오톡으로 먼저 편하게 문의해 주세요.
                 </p>
             </div>
         </section>
@@ -45,19 +53,16 @@
             <div class="container">
                 <div class="contact-layout">
 
-                    <div class="contact-panel contact-panel--info reveal">
+                    <div class="contact-panel contact-panel--primary reveal">
                         <div class="contact-section-head">
-                            <p class="contact-direct-label">INQUIRY GUIDE</p>
-                            <h2 class="serif contact-side-title">촬영 문의를 간결하게</h2>
+                            <p class="contact-direct-label">INQUIRY</p>
+                            <h2 class="serif contact-side-title">가장 빠른 문의는 카카오톡입니다</h2>
                         </div>
-                        <p class="contact-side-desc">
-                            제품, 브랜드, 공간, 인물, 행사 촬영 문의를 받고 있습니다.
-                            참고 이미지와 목적을 함께 보내주시면 더 빠르게 안내드립니다.
+                        <p class="contact-direct-desc">
+                            일정과 참고 이미지를 함께 보내주세요.<br>
+                            더 빠르게 안내해드립니다.
                         </p>
-                        <div class="contact-direct-actions contact-direct-actions--info">
-                            <a href="mailto:bananabk2425@naver.com" class="contact-text-link">이메일 문의</a>
-                            <a href="tel:050713681008" class="contact-text-link">전화 문의</a>
-                        </div>
+                        <a href="https://pf.kakao.com/_UxkDbK?utm_source=website&utm_medium=cta&utm_campaign=contact_primary" target="_blank" rel="noopener noreferrer" class="btn-submit btn-cta-primary contact-kakao-btn">카카오톡 문의</a>
                         <div class="contact-primary-links">
                             <a href="tel:050713681008" class="contact-primary-link">
                                 <span class="channel-label">Tel</span>
@@ -70,25 +75,16 @@
                         </div>
                     </div>
 
-                    <div class="contact-panel contact-panel--cta reveal">
-                        <p class="contact-direct-label">FASTEST CTA</p>
-                        <h2 class="serif contact-direct-title">카카오톡으로 가장 빠르게</h2>
-                        <p class="contact-direct-desc">
-                            일정, 촬영 대상, 참고 이미지를 남겨주시면 바로 상담 흐름을 잡을 수 있습니다.
-                        </p>
-                        <a href="https://pf.kakao.com/_UxkDbK?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" class="btn-submit contact-kakao-btn">카카오톡으로 빠른 문의</a>
-                    </div>
-
                     <div class="contact-panel contact-panel--form reveal">
                         <div class="contact-section-head">
                             <p class="contact-direct-label">FORMAL INQUIRY</p>
                             <h2 class="serif contact-direct-title">정식 문의 폼</h2>
                         </div>
                         <p class="contact-direct-desc">
-                            핵심 정보만 남겨주세요.
+                            자료와 일정을 정리해 보내주시면 이메일로 안내드립니다.
                         </p>
 
-                        <form class="contact-form" id="contact-form" novalidate>
+                        <form class="contact-form" id="contact-form" novalidate data-source-page="contact">
                             <div class="contact-form-grid">
                                 <div class="form-group">
                                     <label for="company">브랜드명 / 업체명</label>
@@ -130,7 +126,7 @@
                             </div>
 
                             <div class="contact-form-submit">
-                                <button type="submit" class="btn-submit">문의 제출</button>
+                                <button type="submit" class="btn-submit btn-cta-secondary">정식 문의 남기기</button>
                                 <p class="form-status" id="form-status" aria-live="polite"></p>
                             </div>
                         </form>
@@ -147,18 +143,23 @@
             <div class="footer-bottom">
                 <p class="contact-footer-meta">Banana Black · Republic of Korea · Tel 0507-1368-1008 · bananabk2425@naver.com · Business&nbsp;License&nbsp;279-54-00216</p>
                 <p>&copy; 2026 Banana Black. All rights reserved.</p>
+                <div class="footer-social-links" aria-label="Social links">
+                    <a href="https://www.instagram.com/bananabk_studio/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://blog.naver.com/bananabk2425" target="_blank" rel="noopener noreferrer">Blog</a>
+                </div>
                 <div class="social-links">
                     <a href="./index.html">Home</a>
-                    <a href="./works/product.html">Product</a>
-                    <a href="./works/food.html">Food</a>
-                    <a href="./works/portrait.html">Portrait</a>
-                    <a href="./works/space.html">Space</a>
+                    <a href="/works/product.html">Product</a>
+                    <a href="/works/food.html">Food</a>
+                    <a href="/works/dessert.html">Dessert</a>
+                    <a href="/works/space.html">Space</a>
+                    <a href="/works/portrait.html">Portrait</a>
                     <a href="./contact.html">Contact</a>
                 </div>
             </div>
         </div>
     </footer>
-
+    <script src="./public-config.js"></script>
     <script src="./main.js"></script>
 </body>
 </html>
