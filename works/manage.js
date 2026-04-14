@@ -5,20 +5,21 @@
     const configuredFunctionsBaseUrl = typeof publicConfig.functionsBaseUrl === 'string'
         ? publicConfig.functionsBaseUrl.trim().replace(/\/$/, '')
         : '';
-    const defaultFunctionsBaseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://127.0.0.1:54321/functions/v1'
-        : `${supabaseUrl}/functions/v1`;
+    const defaultFunctionsBaseUrl = `${supabaseUrl}/functions/v1`;
     const functionsBaseUrl = configuredFunctionsBaseUrl || defaultFunctionsBaseUrl;
-    const fallbackFunctionsBaseUrl = functionsBaseUrl === `${supabaseUrl}/functions/v1`
-        ? 'http://127.0.0.1:54321/functions/v1'
-        : `${supabaseUrl}/functions/v1`;
+    const fallbackFunctionsBaseUrl = functionsBaseUrl;
     const resolveImageUrl = (image) => {
+        let url = '';
+
         if (image && image.resolved_url) {
-            return image.resolved_url;
+            url = image.resolved_url;
+        } else if (image && image.image_url && /^https?:\/\//.test(image.image_url)) {
+            url = image.image_url;
         }
 
-        if (image && image.image_url && /^https?:\/\//.test(image.image_url)) {
-            return image.image_url;
+        if (url) {
+            const localBaseUrl = supabaseUrl && supabaseUrl.includes('127.0.0.1') ? supabaseUrl : 'http://127.0.0.1:54321';
+            return url.replace(/^http:\/\/kong:8000/, localBaseUrl);
         }
 
         if (image && image.image_path && supabaseUrl) {

@@ -5,13 +5,9 @@
     const configuredFunctionsBaseUrl = typeof publicConfig.functionsBaseUrl === 'string'
         ? publicConfig.functionsBaseUrl.trim().replace(/\/$/, '')
         : '';
-    const defaultFunctionsBaseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://127.0.0.1:54321/functions/v1'
-        : `${supabaseUrl}/functions/v1`;
+    const defaultFunctionsBaseUrl = `${supabaseUrl}/functions/v1`;
     const functionsBaseUrl = configuredFunctionsBaseUrl || defaultFunctionsBaseUrl;
-    const fallbackFunctionsBaseUrl = functionsBaseUrl === `${supabaseUrl}/functions/v1`
-        ? 'http://127.0.0.1:54321/functions/v1'
-        : `${supabaseUrl}/functions/v1`;
+    const fallbackFunctionsBaseUrl = functionsBaseUrl;
 
     const requestWithBaseUrl = async (baseUrl, path, body) => {
         const response = await fetch(`${baseUrl}/${path}`, {

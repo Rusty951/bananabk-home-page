@@ -5,13 +5,9 @@
     const configuredFunctionsBaseUrl = typeof publicConfig.functionsBaseUrl === 'string'
         ? publicConfig.functionsBaseUrl.trim().replace(/\/$/, '')
         : '';
-    const defaultFunctionsBaseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://127.0.0.1:54321/functions/v1'
-        : `${supabaseUrl}/functions/v1`;
+    const defaultFunctionsBaseUrl = `${supabaseUrl}/functions/v1`;
     const functionsBaseUrl = configuredFunctionsBaseUrl || defaultFunctionsBaseUrl;
-    const fallbackFunctionsBaseUrl = functionsBaseUrl === `${supabaseUrl}/functions/v1`
-        ? 'http://127.0.0.1:54321/functions/v1'
-        : `${supabaseUrl}/functions/v1`;
+    const fallbackFunctionsBaseUrl = functionsBaseUrl;
 
     if (!supabaseUrl || !supabaseAnonKey || supabaseUrl.includes('YOUR_PROJECT_ID') || supabaseAnonKey.includes('YOUR_SUPABASE_ANON_KEY')) {
         return;
@@ -109,12 +105,17 @@
     };
 
     const resolveImageUrl = (image) => {
+        let url = '';
+
         if (image && image.resolved_url) {
-            return image.resolved_url;
+            url = image.resolved_url;
+        } else if (image && image.image_url && /^https?:\/\//.test(image.image_url)) {
+            url = image.image_url;
         }
 
-        if (image && image.image_url && /^https?:\/\//.test(image.image_url)) {
-            return image.image_url;
+        if (url) {
+            const localBaseUrl = supabaseUrl && supabaseUrl.includes('127.0.0.1') ? supabaseUrl : 'http://127.0.0.1:54321';
+            return url.replace(/^http:\/\/kong:8000/, localBaseUrl);
         }
 
         if (image && image.image_path) {
@@ -231,6 +232,9 @@
         hubGrid.querySelectorAll('.reveal').forEach((element) => {
             element.classList.add('revealed');
         });
+
+        // GA4: Works 허브(카테고리 목록) 조회 이벤트
+        window.BANANABK_GA?.viewWorkCategory();
     };
 
     const renderGridSectionMarkup = (layout, images, imageClass) => {
@@ -300,6 +304,9 @@
         renderWorksNav(categories, categorySlug);
 
         document.title = `${category.title || category.name} | Banana Black`;
+
+        // GA4: Works 카테고리 상세 페이지 조회 이벤트
+        window.BANANABK_GA?.viewWorkDetail(categorySlug);
 
         const labelElement = document.querySelector(layout.labelSelector);
         if (labelElement) {

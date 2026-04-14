@@ -23,6 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     normalizeWorksStaticPath();
     
+    // GA4: 카카오 문의 버튼 클릭 추적 (이벤트 위임 — 모든 카카오 링크 공통)
+    document.addEventListener('click', (event) => {
+        const link = event.target.closest('a[href*="pf.kakao.com"]');
+        if (!link) return;
+        const isFixed = link.classList.contains('fixed-kakao-cta');
+        window.BANANABK_GA?.clickKakaoInquiry(
+            link.href || '',
+            isFixed ? 'fixed_cta' : 'inline'
+        );
+    });
+
+    // GA4: 히든 포트폴리오 페이지 조회 추적
+    if (window.location.pathname.includes('hidden-portfolio')) {
+        window.BANANABK_GA?.viewHiddenCategory();
+    }
+
     // 1. Header scroll effect
     const handleScroll = () => {
         if (window.scrollY > 50) {
@@ -177,6 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 setStatusMessage('문의가 정상적으로 접수되었습니다. 확인 후 이메일로 안내드리겠습니다.', 'success');
+
+                // GA4: 폼 제출 성공 이벤트 발화 (submit_contact_form + generate_lead)
+                window.BANANABK_GA?.submitContactForm(sourcePage);
 
                 if (result && result.notificationSent === false && result.warning) {
                     console.warn('Inquiry saved but notification failed:', result.warning);
