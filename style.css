@@ -3110,7 +3110,8 @@ nav ul li a.active, nav ul li a:hover {
     }
 
     .social-links a {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.02em;
     }
 
 }
@@ -3140,6 +3141,15 @@ nav ul li a.active, nav ul li a:hover {
         width: 100%;
         min-width: 0;
         text-align: center;
+    }
+
+    .social-links {
+        gap: 0.45rem 0.6rem;
+    }
+
+    .social-links a {
+        font-size: 0.68rem;
+        letter-spacing: 0;
     }
 }
 
