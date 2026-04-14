@@ -2609,11 +2609,12 @@ nav ul li a.active, nav ul li a:hover {
 }
 
 #contact-intro h1 {
-    font-size: clamp(4rem, 11vw, 8.2rem);
-    line-height: 0.9;
+    font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+    line-height: 1.15;
     letter-spacing: -0.03em;
     font-weight: 400;
     margin-bottom: 1.4rem;
+    word-break: keep-all;
 }
 
 .contact-intro-desc {
