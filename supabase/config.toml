@@ -1,5 +1,8 @@
 project_id = "bananabk-home-page"
 
+[functions.get-works-content]
+verify_jwt = false
+
 [functions.submit-contact-inquiry]
 verify_jwt = false
 
