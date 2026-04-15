@@ -1038,6 +1038,17 @@ nav ul li a.active, nav ul li a:hover {
     flex-shrink: 0;
 }
 
+/* 모바일에서 헤더가 column으로 쌓여 ~147px로 높아지므로 92px offset을 올려줌 */
+@media (max-width: 768px) {
+    .product-page .works-local-nav,
+    .food-page .works-local-nav,
+    .dessert-page .works-local-nav,
+    .portrait-page .works-local-nav,
+    .space-page .works-local-nav {
+        padding-top: 152px;
+    }
+}
+
 @media (max-width: 600px) {
     .works-landing-intro {
         padding-bottom: calc(var(--space-md) * 0.75 + 3.5rem);
