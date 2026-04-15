@@ -1,6 +1,6 @@
 # PROJECT STATUS — Banana Black Website
 
-> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-04-15
+> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-04-15 (디버깅 완료)
 
 ---
 
@@ -30,6 +30,11 @@
 - 모바일에서 헤더 ~ works-local-nav 겹침 현상 수정 완료 (padding-top 92px → 152px)
 - 푸터 네비 Contact 줄 떨어짐 수정 완료
 - About / Contact 카피 모바일 줄바꿈 안정화 완료
+
+### 코드 디버깅 (2026-04-15)
+- 전체 HTML / JS 디버깅 완료, 중대 버그 없음 확인
+- `product.html` — `<script defer>` 불일치 수정 (다른 페이지와 통일)
+- `index.html` / `about.html` — `public-config.js` 로드 추가 (일관성)
 
 ### Supabase Edge Functions (로컬 검증 완료)
 - `get-works-content` — works 이미지/카테고리 조회
