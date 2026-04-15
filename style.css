@@ -1039,6 +1039,10 @@ nav ul li a.active, nav ul li a:hover {
 }
 
 @media (max-width: 600px) {
+    .works-landing-intro {
+        padding-bottom: calc(var(--space-md) * 0.75 + 3.5rem);
+    }
+
     .works-landing-intro .container {
         flex-direction: column;
         align-items: flex-start;
