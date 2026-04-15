@@ -1008,6 +1008,50 @@ nav ul li a.active, nav ul li a:hover {
     padding-top: 0;
 }
 
+/* Works 상세 상단 랜딩 카피 섹션 */
+.works-landing-intro {
+    padding: var(--space-md) 0 calc(var(--space-md) * 0.75);
+    display: flex;
+    align-items: center;
+}
+
+.works-landing-intro .container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.works-landing-copy {
+    font-size: clamp(1rem, 2.8vw, 1.35rem);
+    font-weight: 300;
+    letter-spacing: -0.015em;
+    color: rgba(236, 232, 224, 0.92);
+    word-break: keep-all;
+    line-height: 1.45;
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+}
+
+.works-landing-btn {
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .works-landing-intro .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: calc(var(--space-sm) * 1.2);
+    }
+
+    .works-landing-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+
 .works-local-nav-inner {
     display: flex;
     justify-content: space-between;
