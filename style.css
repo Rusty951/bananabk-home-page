@@ -3519,6 +3519,56 @@ nav ul li a.active, nav ul li a:hover {
     }
 }
 
+@media (max-width: 480px) {
+    .statement-large,
+    #bottom-cta h3,
+    .works-cta-title,
+    .about-cta-text,
+    #contact-intro h1 {
+        text-wrap: balance;
+    }
+
+    .statement-large br,
+    .statement-copy br,
+    .bottom-cta-copy br,
+    .works-cta-title br,
+    .works-cta-copy br,
+    .about-intro-desc br,
+    .about-intro-note br,
+    .about-perspective-lead br,
+    .about-perspective-body br,
+    .scope-item p br,
+    .about-cta-text br,
+    .about-cta-desc br,
+    #contact-intro h1 br,
+    .contact-intro-desc br,
+    .contact-direct-desc br {
+        display: none;
+    }
+
+    #contact-intro h1 {
+        font-size: clamp(2rem, 9vw, 2.55rem);
+        line-height: 1.22;
+    }
+
+    .about-cta-text {
+        font-size: clamp(1.55rem, 7.8vw, 2.15rem);
+        line-height: 1.3;
+    }
+
+    .about-intro-desc,
+    .about-intro-note,
+    .about-perspective-body,
+    .about-cta-desc,
+    .contact-intro-desc,
+    .contact-direct-desc,
+    .works-cta-copy,
+    .bottom-cta-copy,
+    .statement-copy {
+        line-height: 1.72;
+    }
+}
+
 /* 16. About + Contact Dark Test */
 .about-page,
 .contact-page {
