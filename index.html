@@ -70,6 +70,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 0.65rem;
             min-width: 280px;
             max-width: 360px;
             flex: 1 1 280px;
@@ -78,6 +79,18 @@
         .cta-item .btn-contact {
             width: 100%;
             justify-content: center;
+        }
+
+        .cta-label {
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            color: rgba(255, 255, 255, 0.64);
+        }
+
+        .cta-footnote {
+            margin: 1.5rem 0 0;
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -248,14 +261,18 @@
                                rel="noopener">
                                 카카오톡 문의
                             </a>
+                            <span class="cta-label">카카오톡으로 가볍게</span>
                         </div>
 
                         <div class="cta-item">
                             <a href="./contact.html" class="btn-contact btn-cta-secondary">
                                 정식 문의 남기기
                             </a>
+                            <span class="cta-label">정식 문의로 남기기</span>
                         </div>
                     </div>
+
+                    <p class="cta-footnote">보통 24시간 내 답변드려요</p>
                 </section>
             </div>
         </section>
