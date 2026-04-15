@@ -4,81 +4,100 @@
 
 ---
 
-## 완료
+## 현재 확인 완료
 
-### 저장소 / 인프라
-- GitHub 저장소 운영 중: `https://github.com/Rusty951/bananabk-home-page.git`
-- `main` 브랜치 최신 커밋 반영 완료
-- `supabase/.env.local` — `.gitignore` 처리 완료
-- Supabase 운영 프로젝트 연결 완료 (`gtuwmsynpdpixmhfytao.supabase.co`)
-- Supabase 프로젝트 ID 오타 수정 완료 (bjx → pix)
+### 저장소 / 기본 구조
+- 정적 사이트 + Supabase 조합 구조 유지 중
+- `.gitignore`에 `supabase/.env.local`, `.env.local` 포함
+- Git 작업트리는 현재 수정 중인 문서/HTML/JS 기준으로 dirty 상태
 
-### Analytics
-- GA4 연결 완료 (G-2FJCQ8LW6B)
-- 모든 공개 페이지에 `gtag` 삽입 완료
+### 공개 페이지
+- 공개 페이지 파일은 홈 / 소개 / 문의 / Works 허브 / Product / Food / Dessert / Space / Portrait까지 확인
+- 각 공개 Works 페이지는 `works-data.js` 기반으로 Supabase 데이터 렌더링 구조 사용
+- `works/index.html`은 초기 정적 카드 마크업이 있고, 로드 후 함수 응답으로 덮어쓰는 구조
 
-### Works 상세페이지
-- product / food / dessert / space / portrait 5개 페이지 공개 배포 범위에 포함
-- 각 페이지 상단에 카테고리별 랜딩 카피 + 카카오톡 문의 CTA 추가 완료
-- Supabase Storage 이미지 기반 렌더링 구조 완료
-- 로컬 미사용 이미지 39개 삭제 완료 (images/works/ 정리)
-
-### 모바일 UX
-- 플로팅 카카오톡 문의 버튼 위치 고정 (bottom-right)
-- 상단 CTA ~ 첫 이미지 사이 간격 조정 완료 (모바일 5rem)
-- 모바일에서 헤더 ~ works-local-nav 겹침 현상 수정 완료 (padding-top 92px → 152px)
-- 푸터 네비 Contact 줄 떨어짐 수정 완료
-- About / Contact 카피 모바일 줄바꿈 안정화 완료
-
-### Supabase Edge Functions (로컬 검증 완료)
-- `get-works-content` — verify_jwt 적용, works 이미지/카테고리 조회
-- `upload-work-image` — 이미지 업로드 → Storage + DB row 생성
-- `manage-work-images` — 정렬 / 숨김 / 삭제
-- `submit-contact-inquiry` — 문의 저장 + 관리자 메일 발송 (로컬 기준)
+### Supabase
+- 운영 URL은 `gtuwmsynpdpixmhfytao.supabase.co`
+- 마이그레이션 파일 존재:
+  - `contact_inquiries`
+  - `works_categories`
+  - `works_images`
+- Edge Functions 4개 존재:
+  - `get-works-content`
+  - `upload-work-image`
+  - `manage-work-images`
+  - `submit-contact-inquiry`
 
 ### Contact
-- 로컬 기준 `contact_inquiries` DB 저장 확인
-- 로컬 기준 관리자 메일 알림 확인
-- `DB 우선 저장 → 메일 후발송` 구조 검증 완료
+- 프론트는 `submit-contact-inquiry`를 직접 호출하는 구조
+- 함수는 `contact_inquiries` 저장 후 Resend 메일 발송을 시도
+- Resend 환경변수가 비어 있으면 저장은 하고 warning을 반환하는 구조
+- 개인정보 안내 문구는 현재 폼 필드 기준으로 맞춰 수정 완료
+
+### 비공개 / 내부 페이지
+- `works/portrait-private.html` 존재
+- `works/upload.html`, `works/manage.html` 존재
+- 비공개/내부 페이지에는 `noindex, nofollow` 메타 반영 완료
+
+### Analytics
+- 공개 페이지에는 GA4 `gtag` 스니펫 존재
+- `analytics.js` 기반 커스텀 이벤트 유틸 존재
+- 비공개 조회 이벤트는 `portrait-private` 기준으로 추적
 
 ---
 
-## 진행 중 / 보류
+## 문서와 실제 구현의 차이점 정리
 
-### Vercel 배포
-- 정적 사이트 배포 미완료
-- 배포 설정 파일 없음 (vercel.json 없음)
+### 수정 완료
+- 기존 문서의 `verify_jwt 적용` 표현은 실제 설정과 달라서 정정함
+- 레거시 `hidden-portfolio.html` 삭제 완료
+- `portrait-private` 추적 누락을 반영해 현재 상태와 문서를 맞춤
+- Contact 개인정보 수집 항목에서 실제로 없는 첨부파일 항목 제거
+
+### 현재 실제 상태
+- `supabase/config.toml` 기준 모든 함수는 `verify_jwt = false`
+- "공개 사이트는 배포 준비 완료"라고 단정할 만큼 운영 배포 검증은 아직 없음
+- 비공개 포트폴리오 경로는 `works/portrait-private.html` 단일 기준
+
+---
+
+## 진행 중 / 미확정
+
+### 배포
+- `vercel.json` 없음
+- Vercel을 쓸지, 다른 정적 호스팅을 쓸지 저장소 기준으로 확정되지 않음
+- 운영 URL / 도메인 기준 최종 점검 기록 없음
 
 ### Contact 운영 연결
-- 로컬 검증만 완료, 운영 환경 미연결
-- 남은 것:
-  - [ ] Resend 도메인 인증
-  - [ ] `MAIL_FROM` 운영 주소 확정
-  - [ ] Supabase secrets 등록
-  - [ ] `submit-contact-inquiry` 운영 배포
-  - [ ] 운영 환경 실제 제출 테스트
+- 운영 secrets 등록 여부는 저장소만으로 확정 불가
+- Resend 도메인 인증 여부도 저장소만으로 확정 불가
+- 운영 환경에서 실제 제출 테스트 완료 기록 없음
 
-### Works 내부 운영툴 (보류)
-- `works/upload.html` / `works/manage.html`
-- 공개 메뉴 / 푸터 / CTA 어디에도 노출하지 않음
-- 로컬 테스트에서 upload → manage → render 흐름이 반복적으로 꼬인 이력 있음
-- 안정화 후 내부 운영 개시 예정
-
-### Environment Portrait
-- `works/portrait-private.html` 존재 (비공개 내부 페이지)
-- 공개 works 카테고리 네비에는 미노출 상태
+### Works 내부 운영툴
+- 업로드 / 관리 UI와 함수는 존재
+- 접근 제어는 별도 인증이 아니라 비노출 + 직접 접근 전제
+- 운영 개시 완료라고 보기엔 보호 정책과 운영 검증 기록이 더 필요
 
 ---
 
-## 다음 작업 순서
+## 정리 메모
 
-1. Vercel 배포 → 공개 URL 확보
-2. 운영 Supabase secrets 등록 + submit-contact-inquiry 운영 배포
-3. 운영 환경에서 Contact 실제 제출 테스트
-4. Works upload / manage 안정화
+### 중복 문구 / 상태 표현
+- "배포 준비 완료"
+- "verify_jwt 적용"
+- "안정화 완료"
+- 위 표현은 실제 검증 범위를 넘어서므로 지속적으로 제거 또는 보수적으로 유지하는 편이 맞음
+
+---
+
+## 다음 권장 순서
+
+1. 운영 배포 경로 확정
+2. Contact 운영 secrets / Resend 설정 실제 확인
+3. Works 내부 운영툴 보호 수준 결정
 
 ---
 
 ## 한 줄 요약
 
-공개 사이트는 배포 준비 완료 상태. Vercel 배포와 Contact 운영 연결만 남음.
+구현은 어느 정도 갖춰져 있지만, 문서가 실제 설정보다 앞서가던 부분이 있어서 현재 코드 기준으로 다시 맞춰둔 상태입니다.

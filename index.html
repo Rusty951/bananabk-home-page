@@ -17,6 +17,113 @@
         gtag('js', new Date());
         gtag('config', 'G-2FJCQ8LW6B');
     </script>
+    <style>
+        .works-filter-guide {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 2rem;
+            margin: 0 0 2rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.62);
+        }
+
+        .works-filter-guide p {
+            margin: 0;
+        }
+
+        .works-filter-guide a {
+            color: rgba(255, 255, 255, 0.82);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .works-filter-guide a:hover {
+            color: rgba(255, 255, 255, 0.96);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .sns-bridge {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .sns-bridge a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.92rem;
+            color: rgba(255, 255, 255, 0.68);
+            text-decoration: none;
+            transition: color 0.25s ease, opacity 0.25s ease;
+        }
+
+        .sns-bridge a:hover {
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        .inquiry-section {
+            text-align: center;
+        }
+
+        .inquiry-section h3 {
+            margin: 0 0 2rem;
+        }
+
+        .cta-group {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 260px;
+        }
+
+        .cta-item .btn-contact {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .cta-label {
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            color: rgba(255, 255, 255, 0.64);
+        }
+
+        .cta-footnote {
+            margin: 1.5rem 0 0;
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .works-filter-guide {
+                flex-direction: column;
+                gap: 0.65rem;
+                margin-bottom: 1.75rem;
+            }
+
+            .sns-bridge {
+                margin-top: 1.25rem;
+            }
+
+            .cta-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cta-item {
+                width: 100%;
+                min-width: 0;
+            }
+        }
+    </style>
 </head>
 <body class="fade-in home-page">
     <header id="main-header">
@@ -54,7 +161,7 @@
             </div>
             <div class="container hero-container">
                 <div class="hero-text-content">
-                    <p class="hero-eyebrow fade-up">Commercial Photo Studio · Product · Food · Dessert · Space · Portrait</p>
+                    <p class="hero-eyebrow fade-up">브랜드의 언어를 빛으로 번역합니다</p>
                     <h1 class="serif fade-up">본질을 더 선명하게</h1>
                     <div class="hero-actions fade-up">
                         <a href="https://pf.kakao.com/_UxkDbK?utm_source=website&utm_medium=cta&utm_campaign=home_hero" target="_blank" rel="noopener noreferrer" class="btn-contact btn-cta-primary">카카오톡 문의</a>
@@ -77,6 +184,11 @@
         <!-- Category Showcase Section -->
         <section id="category-showcase">
             <div class="container">
+                <div class="works-filter-guide">
+                    <p>제품을 파시나요? → <a href="./works/product.html">Product</a></p>
+                    <p>음식을 담으시나요? → <a href="./works/food.html">Food</a></p>
+                    <p>공간을 소개하시나요? → <a href="./works/space.html">Space</a></p>
+                </div>
                 <div class="category-grid">
                     <!-- Product (Highlight) -->
                     <a href="/works/product.html" class="category-card" data-category="product">
@@ -111,7 +223,7 @@
                             <div class="card-info">
                                 <span class="card-kicker">03 · Dessert Editorial</span>
                                 <h2 class="serif">Dessert</h2>
-                                <p>달콤한 결을 차분하게 정리합니다</p>
+                                <p>달콤함의 온도를 정확히 담습니다</p>
                             </div>
                         </a>
 
@@ -135,10 +247,15 @@
                             <div class="card-info">
                                 <span class="card-kicker">05 · Portrait Direction</span>
                                 <h2 class="serif">Portrait</h2>
-                                <p>인상의 핵심을 정리합니다</p>
+                                <p>그 사람만의 빛을 꺼내냅니다</p>
                             </div>
                         </a>
                     </div>
+                </div>
+                <div class="sns-bridge">
+                    <a href="https://www.instagram.com/bananabk_studio/" target="_blank" rel="noopener">
+                        📸 비하인드 컷은 인스타에서 확인하세요
+                    </a>
                 </div>
             </div>
         </section>
@@ -146,13 +263,30 @@
         <!-- Bottom CTA -->
         <section id="bottom-cta">
             <div class="container">
-                <p class="section-label reveal">Project Inquiry</p>
-                <h3 class="serif reveal">더 깊은 시선이 필요할 때</h3>
-                <p class="bottom-cta-copy reveal">작업 목적과 참고 이미지를 보내주시면<br>필요한 흐름을 바로 정리해드립니다.</p>
-                <div class="bottom-cta-actions reveal">
-                    <a href="https://pf.kakao.com/_UxkDbK?utm_source=website&utm_medium=cta&utm_campaign=home_bottom" target="_blank" rel="noopener noreferrer" class="btn-contact btn-cta-primary">카카오톡 문의</a>
-                    <a href="./contact.html" class="btn-contact btn-cta-secondary">정식 문의 남기기</a>
-                </div>
+                <section class="inquiry-section reveal">
+                    <h3 class="serif">어떤 장면이 필요한지 먼저 들려주세요</h3>
+
+                    <div class="cta-group">
+                        <div class="cta-item">
+                            <a href="https://pf.kakao.com/_UxkDbK?utm_source=website&utm_medium=cta&utm_campaign=home_bottom"
+                               class="btn-contact btn-cta-primary"
+                               target="_blank"
+                               rel="noopener">
+                                어떤 촬영인지 먼저 보여주세요 →
+                            </a>
+                            <span class="cta-label">카카오톡으로 가볍게</span>
+                        </div>
+
+                        <div class="cta-item">
+                            <a href="./contact.html" class="btn-contact btn-cta-secondary">
+                                촬영 문의 남기기 →
+                            </a>
+                            <span class="cta-label">정식 문의로 남기기</span>
+                        </div>
+                    </div>
+
+                    <p class="cta-footnote">보통 24시간 내 답변드려요</p>
+                </section>
             </div>
         </section>
     </main>
