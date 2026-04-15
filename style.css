@@ -641,6 +641,13 @@ nav ul li a.active, nav ul li a:hover {
     margin-bottom: 0;
 }
 
+.works-intro-copy {
+    margin-top: 0.85rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(227, 231, 229, 0.76);
+}
+
 .works-grid {
     display: flex;
     flex-direction: column;
@@ -700,6 +707,14 @@ nav ul li a.active, nav ul li a:hover {
     line-height: 1.04;
     color: #eef0ed;
     text-shadow: none;
+}
+
+.works-card-desc {
+    max-width: 28ch;
+    margin: 0.8rem auto 0;
+    font-size: 0.96rem;
+    line-height: 1.72;
+    color: rgba(227, 231, 229, 0.76);
 }
 
 .works-hub-page .works-card:hover {

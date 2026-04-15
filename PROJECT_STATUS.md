@@ -9,12 +9,15 @@
 ### 저장소 / 기본 구조
 - 정적 사이트 + Supabase 조합 구조 유지 중
 - `.gitignore`에 `supabase/.env.local`, `.env.local` 포함
-- Git 작업트리는 현재 수정 중인 문서/HTML/JS 기준으로 dirty 상태
+- 홈 / 소개 / 문의 / Works 관련 HTML과 `style.css` 중심으로 최근 카피/모바일 폴리싱 반영 중
 
 ### 공개 페이지
 - 공개 페이지 파일은 홈 / 소개 / 문의 / Works 허브 / Product / Food / Dessert / Space / Portrait까지 확인
 - 각 공개 Works 페이지는 `works-data.js` 기반으로 Supabase 데이터 렌더링 구조 사용
 - `works/index.html`은 초기 정적 카드 마크업이 있고, 로드 후 함수 응답으로 덮어쓰는 구조
+- Home / About / Contact / Works 카피는 모바일 가독성 기준으로 최근 한 차례 더 정리됨
+- Works Hub에는 상단 설명 문구와 카드별 짧은 설명 문구가 다시 반영됨
+- Works 상세 하단 CTA는 공통 문구 기준으로 통일됨
 
 ### Supabase
 - 운영 URL은 `gtuwmsynpdpixmhfytao.supabase.co`
@@ -43,6 +46,13 @@
 - 공개 페이지에는 GA4 `gtag` 스니펫 존재
 - `analytics.js` 기반 커스텀 이벤트 유틸 존재
 - 비공개 조회 이벤트는 `portrait-private` 기준으로 추적
+
+### UI / 카피 상태
+- Home 히어로 서브카피는 `브랜드의 언어를 빛으로 번역합니다`
+- Home 하단 CTA 헤드라인은 `어떤 장면이 필요한지 / 먼저 들려주세요`
+- Contact 상단 제목은 `필요한 촬영을 알려주세요`
+- 전체 푸터 메타에서는 `Republic of Korea` 문구 제거 완료
+- 모바일 푸터 메타는 2줄 구조로 보이도록 정리 완료
 
 ---
 
