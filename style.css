@@ -3127,6 +3127,14 @@ nav ul li a.active, nav ul li a:hover {
     white-space: nowrap;
 }
 
+.footer-meta-row {
+    display: inline;
+}
+
+.footer-meta-row + .footer-meta-row::before {
+    content: " · ";
+}
+
 /* Contact Responsive */
 @media (max-width: 900px) {
     #contact-intro {
@@ -3566,6 +3574,19 @@ nav ul li a.active, nav ul li a:hover {
     .bottom-cta-copy,
     .statement-copy {
         line-height: 1.72;
+    }
+
+    .contact-footer-meta {
+        max-width: 30rem;
+        line-height: 1.55;
+    }
+
+    .footer-meta-row {
+        display: block;
+    }
+
+    .footer-meta-row + .footer-meta-row::before {
+        content: none;
     }
 }
 
