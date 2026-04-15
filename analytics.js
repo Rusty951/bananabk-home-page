@@ -109,7 +109,7 @@
 
         /**
          * 비공개 포트폴리오 페이지 조회
-         * 발화 위치: main.js → DOMContentLoaded, hidden-portfolio / portrait-private 페이지 감지
+         * 발화 위치: main.js → DOMContentLoaded, portrait-private 페이지 감지
          */
         viewHiddenCategory: function () {
             sendEvent('view_hidden_category', {

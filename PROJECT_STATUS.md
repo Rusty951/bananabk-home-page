@@ -16,7 +16,7 @@
 ### Analytics
 - GA4 연결 완료 (G-2FJCQ8LW6B)
 - 모든 공개 페이지에 `gtag` 삽입 완료
-- `hidden-portfolio` / `portrait-private` 비공개 포트폴리오 조회 추적 반영 완료
+- `portrait-private` 비공개 포트폴리오 조회 추적 반영 완료
 
 ### Works 상세페이지
 - product / food / dessert / space / portrait 5개 페이지 공개 배포 범위에 포함
@@ -71,8 +71,7 @@
 ### Environment Portrait
 - `works/portrait-private.html` 존재 (비공개 내부 페이지)
 - 공개 works 카테고리 네비에는 미노출 상태
-- `hidden-portfolio.html` 레거시 페이지도 현재 저장소에 존재
-- `hidden-portfolio.html`, `works/portrait-private.html`, `works/upload.html`, `works/manage.html`에 `noindex, nofollow` 반영 완료
+- `works/portrait-private.html`, `works/upload.html`, `works/manage.html`에 `noindex, nofollow` 반영 완료
 
 ---
 
