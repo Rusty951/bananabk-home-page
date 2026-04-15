@@ -30,12 +30,14 @@
 | 파일 | 설명 |
 |---|---|
 | `works/portrait-private.html` | Environment Portrait 비공개 페이지 |
+| `hidden-portfolio.html` | 레거시 비공개 포트폴리오 페이지 |
 | `works/upload.html` | 이미지 업로드 (내부 운영용) |
 | `works/manage.html` | 이미지 관리 (내부 운영용) |
 
 ### 운영 원칙
 - `upload / manage / portrait-private`는 공개 메뉴 / 푸터 / CTA에 노출하지 않음
 - URL 직접 접근 전용으로만 유지
+- `hidden-portfolio.html`, `works/portrait-private.html`, `works/upload.html`, `works/manage.html`에는 `noindex, nofollow` 적용
 
 ---
 
@@ -44,10 +46,14 @@
 ### Supabase
 - 운영 URL: `https://gtuwmsynpdpixmhfytao.supabase.co`
 - Edge Functions:
-  - `get-works-content` — works 이미지/카테고리 조회 (verify_jwt 적용)
+  - `get-works-content` — works 이미지/카테고리 조회
   - `upload-work-image` — 이미지 업로드 → Storage 저장 + works_images row 생성
   - `manage-work-images` — 정렬 / 숨김 / 삭제
   - `submit-contact-inquiry` — 문의 저장 + 관리자 메일 발송
+
+### 인증 / 접근 방식
+- 현재 `supabase/config.toml` 기준으로 4개 Edge Function 모두 `verify_jwt = false`
+- 문서상 `verify_jwt 적용`으로 보지 않고, 현재는 공개 호출 전제 구조로 이해해야 함
 
 ### 이미지 전략
 - Works 이미지는 **Supabase Storage** 기반으로 관리
@@ -98,3 +104,4 @@
 - 하단 CTA / 상단 카피 문구는 별도 지시 없으면 건드리지 않음
 - CSS 변경은 가능하면 공통 클래스로 처리해 모든 상세페이지 일괄 적용
 - 배포 전 모바일 기준으로 먼저 확인
+- 비공개 포트폴리오 조회 추적은 `hidden-portfolio`와 `portrait-private` 둘 다 기준으로 확인

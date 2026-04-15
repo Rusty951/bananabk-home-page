@@ -34,8 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     });
 
-    // GA4: 히든 포트폴리오 페이지 조회 추적
-    if (window.location.pathname.includes('hidden-portfolio')) {
+    // GA4: 비공개 포트폴리오 페이지 조회 추적
+    if (
+        window.location.pathname.includes('hidden-portfolio') ||
+        window.location.pathname.includes('portrait-private')
+    ) {
         window.BANANABK_GA?.viewHiddenCategory();
     }
 

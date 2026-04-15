@@ -16,6 +16,7 @@
 ### Analytics
 - GA4 연결 완료 (G-2FJCQ8LW6B)
 - 모든 공개 페이지에 `gtag` 삽입 완료
+- `hidden-portfolio` / `portrait-private` 비공개 포트폴리오 조회 추적 반영 완료
 
 ### Works 상세페이지
 - product / food / dessert / space / portrait 5개 페이지 공개 배포 범위에 포함
@@ -31,10 +32,13 @@
 - About / Contact 카피 모바일 줄바꿈 안정화 완료
 
 ### Supabase Edge Functions (로컬 검증 완료)
-- `get-works-content` — verify_jwt 적용, works 이미지/카테고리 조회
+- `get-works-content` — works 이미지/카테고리 조회
 - `upload-work-image` — 이미지 업로드 → Storage + DB row 생성
 - `manage-work-images` — 정렬 / 숨김 / 삭제
 - `submit-contact-inquiry` — 문의 저장 + 관리자 메일 발송 (로컬 기준)
+
+### 현재 설정 기준
+- `supabase/config.toml` 기준 4개 Edge Function 모두 `verify_jwt = false`
 
 ### Contact
 - 로컬 기준 `contact_inquiries` DB 저장 확인
@@ -67,6 +71,8 @@
 ### Environment Portrait
 - `works/portrait-private.html` 존재 (비공개 내부 페이지)
 - 공개 works 카테고리 네비에는 미노출 상태
+- `hidden-portfolio.html` 레거시 페이지도 현재 저장소에 존재
+- `hidden-portfolio.html`, `works/portrait-private.html`, `works/upload.html`, `works/manage.html`에 `noindex, nofollow` 반영 완료
 
 ---
 
