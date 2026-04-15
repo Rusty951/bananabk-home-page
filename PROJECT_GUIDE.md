@@ -7,13 +7,13 @@
 
 - 바나나블랙 포트폴리오와 문의 전환용 정적 사이트
 - 기술 스택: HTML / CSS / JavaScript + Supabase (DB + Storage + Edge Functions)
-- Analytics: GA4 (`G-2FJCQ8LW6B`)
+- Analytics: GA4 (G-2FJCQ8LW6B)
 
 ---
 
-## 현재 구조 요약
+## 페이지 구조
 
-### 공개 페이지
+### 공개 배포 범위
 | 파일 | 설명 |
 |---|---|
 | `index.html` | 홈 |
@@ -26,25 +26,16 @@
 | `works/space.html` | Space 상세 |
 | `works/portrait.html` | Portrait 상세 |
 
-### 비공개 / 내부 운영 페이지
+### 내부 운영 범위 (URL 직접 접근 전용)
 | 파일 | 설명 |
 |---|---|
-| `works/portrait-private.html` | 비공개 Portrait 상세 |
-| `works/upload.html` | 이미지 업로드 운영 페이지 |
-| `works/manage.html` | 이미지 관리 운영 페이지 |
+| `works/portrait-private.html` | Environment Portrait 비공개 페이지 |
+| `works/upload.html` | 이미지 업로드 (내부 운영용) |
+| `works/manage.html` | 이미지 관리 (내부 운영용) |
 
 ### 운영 원칙
-- `works/portrait-private.html`, `works/upload.html`, `works/manage.html`에는 `noindex, nofollow` 적용
-- 공개 메뉴에서 내부 운영 페이지로 연결하지 않음
-- 비공개 포트폴리오 운영 기준은 `works/portrait-private.html`를 단일 기준으로 유지
-
-### 현재 카피 기준
-- Home 히어로 서브카피: `브랜드의 언어를 빛으로 번역합니다`
-- Home 하단 CTA 헤드라인: `어떤 장면이 필요한지 / 먼저 들려주세요`
-- About 소개 문구는 `제품, 푸드, 디저트, 공간, 인물까지...` 기준의 짧은 모바일 대응 문장으로 유지
-- Contact 상단 제목은 `필요한 촬영을 알려주세요`
-- Works Hub / Works Detail CTA는 `필요한 장면부터 / 함께 정리해드릴게요` 기준으로 통일
-- 푸터 메타 1줄은 `Banana Black · Tel 0507-1368-1008` 기준으로 유지
+- `upload / manage / portrait-private`는 공개 메뉴 / 푸터 / CTA에 노출하지 않음
+- URL 직접 접근 전용으로만 유지
 
 ---
 
@@ -52,89 +43,58 @@
 
 ### Supabase
 - 운영 URL: `https://gtuwmsynpdpixmhfytao.supabase.co`
-- 브라우저 공개 설정은 [public-config.js](/Users/bananabk/Documents/Antigravity/bananabk-home-page/public-config.js)에 있음
 - Edge Functions:
-  - `get-works-content` — works 카테고리/이미지 조회
-  - `upload-work-image` — 이미지 업로드 → Storage 저장 + `works_images` row 생성
-  - `manage-work-images` — 목록 조회 / 순서 이동 / 숨김 / 삭제
-  - `submit-contact-inquiry` — 문의 저장 + 관리자 메일 발송 시도
-
-### 인증 / 접근 방식
-- 현재 `supabase/config.toml` 기준으로 4개 Edge Function 모두 `verify_jwt = false`
-- 프론트에서는 anon key를 `apikey` / `Authorization` 헤더로 전달
-- 즉, 현재 문서 기준으로는 "JWT 검증 적용" 상태가 아니라 "공개 호출 + 함수 내부 처리" 구조로 봐야 함
+  - `get-works-content` — works 이미지/카테고리 조회 (verify_jwt 적용)
+  - `upload-work-image` — 이미지 업로드 → Storage 저장 + works_images row 생성
+  - `manage-work-images` — 정렬 / 숨김 / 삭제
+  - `submit-contact-inquiry` — 문의 저장 + 관리자 메일 발송
 
 ### 이미지 전략
-- Works 이미지는 Supabase Storage `works` 버킷 기준
-- 로컬 `images/works/`에는 페이지 fallback 및 대표 이미지로 쓰는 파일만 유지
-- 상세 Works 페이지는 `works-data.js`가 함수 응답을 우선 사용하고, 실패 시 REST 조회로 fallback
+- Works 이미지는 **Supabase Storage** 기반으로 관리
+- 로컬 `images/works/`에는 HTML에 직접 hardcode된 5개만 유지:
+  - `5cced61b2b11e.jpg` (portrait hero)
+  - `30e31ad2d4316.jpg`
+  - `8ca1cc9bc0acb.jpg`
+  - `69349b8668aad.png`
+  - `product-hero-blue.jpg`
 
 ---
 
-## Works 구조
+## Works 상세페이지 구조 (공통)
 
-### 공개 Works 상세페이지 공통 구조
-1. Fixed 헤더
-2. `works-local-nav`
-3. `works-landing-intro`
-4. Hero 이미지
-5. Grid 이미지
-6. 하단 CTA
+각 상세페이지는 아래 순서로 구성:
 
-### 비공개 Portrait 페이지
-- 파일: `works/portrait-private.html`
-- `data-category-slug="portrait-private"`로 동일 렌더링 파이프라인 사용
-- GA 유틸리티(`analytics.js`) 포함
-- 검색엔진 인덱싱 차단 메타 적용
+1. **Fixed 헤더** (전역)
+2. **works-local-nav** — All Works + 카테고리 링크
+3. **works-landing-intro** — 카테고리별 카피 1줄 + 카카오톡 문의 CTA
+4. **Hero / Grid 이미지 구간** — Supabase Storage 이미지 렌더링
+5. **하단 CTA 섹션**
 
 ### 모바일 UX 기준
-- 헤더: `position: fixed`
-- Works 상세 `works-local-nav`는 헤더 높이를 고려해 상단 여백 확보
-- CTA와 첫 이미지 사이 간격은 모바일 기준으로 넉넉하게 유지
-- 모바일에서는 과한 강제 줄바꿈보다 2줄 내 의도된 문장 리듬을 우선 유지
+- 헤더: `position: fixed`, 모바일에서 column 레이아웃 (~147px 높이)
+- `works-local-nav` padding-top: 모바일 152px / 데스크톱 92px
+- `works-landing-intro` padding-bottom: 모바일 5rem / 데스크톱 1.5rem
 
 ---
 
-## Contact 구조
+## 남은 작업 우선순위
 
-### 현재 동작
-- `contact.html` 폼 제출 시 `submit-contact-inquiry` 호출
-- 저장 우선: `contact_inquiries` 테이블 저장
-- 메일 후처리: Resend 설정이 있으면 관리자 메일 발송 시도
-- 메일 실패 시에도 DB 저장 성공이면 사용자에게는 정상 접수 응답 가능
+1. **Vercel 배포** — 공개 사이트 정적 배포
+2. **Contact 운영 연결** — 아래 체크리스트 참고
+3. **Works 운영툴 안정화** — upload / manage 안정화 후 내부 운영 개시
 
-### 개인정보 수집 기준
-- 현재 폼 기준 수집 항목:
-  - 브랜드명 / 업체명
-  - 담당자명
-  - 이메일
-  - 연락처
-  - 문의내용
-- 첨부파일 입력은 현재 구현되어 있지 않음
+### Contact 운영 전 체크리스트
+- [ ] Resend 도메인 인증
+- [ ] `MAIL_FROM` 운영 주소 확정
+- [ ] Supabase secrets 등록 (`RESEND_API_KEY` 등)
+- [ ] `submit-contact-inquiry` 운영 환경 배포
+- [ ] 운영 환경 실제 제출 테스트
 
 ---
 
-## Analytics 기준
+## 작업 원칙
 
-- 공개 페이지에는 GA4 `gtag` 스니펫 삽입
-- 커스텀 이벤트 유틸은 [analytics.js](/Users/bananabk/Documents/Antigravity/bananabk-home-page/analytics.js)
-- 비공개 조회 이벤트는 `portrait-private` 경로 기준으로 추적
-
----
-
-## 문서 작업 원칙
-
-- 상태 문서는 "확인된 사실"만 적음
-- 구현과 다를 수 있는 표현:
-  - "배포 준비 완료"
-  - "JWT 검증 적용"
-  - "운영 안정화 완료"
-  이런 표현은 실제 설정/테스트로 확인된 경우에만 사용
-
----
-
-## 다음 작업 우선순위
-
-1. Contact 운영 환경 secrets / Resend 도메인 인증 완료
-2. 운영 배포 경로 확정 (Vercel 포함 여부)
-3. Works 내부 운영툴 접근 제어 필요 시 별도 보호 방식 추가
+- 공개 범위와 내부 운영 범위를 섞지 않음
+- 하단 CTA / 상단 카피 문구는 별도 지시 없으면 건드리지 않음
+- CSS 변경은 가능하면 공통 클래스로 처리해 모든 상세페이지 일괄 적용
+- 배포 전 모바일 기준으로 먼저 확인

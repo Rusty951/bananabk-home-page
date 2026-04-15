@@ -641,13 +641,6 @@ nav ul li a.active, nav ul li a:hover {
     margin-bottom: 0;
 }
 
-.works-intro-copy {
-    margin-top: 0.85rem;
-    font-size: 1rem;
-    line-height: 1.75;
-    color: rgba(227, 231, 229, 0.76);
-}
-
 .works-grid {
     display: flex;
     flex-direction: column;
@@ -707,14 +700,6 @@ nav ul li a.active, nav ul li a:hover {
     line-height: 1.04;
     color: #eef0ed;
     text-shadow: none;
-}
-
-.works-card-desc {
-    max-width: 28ch;
-    margin: 0.8rem auto 0;
-    font-size: 0.96rem;
-    line-height: 1.72;
-    color: rgba(227, 231, 229, 0.76);
 }
 
 .works-hub-page .works-card:hover {
@@ -3142,14 +3127,6 @@ nav ul li a.active, nav ul li a:hover {
     white-space: nowrap;
 }
 
-.footer-meta-row {
-    display: inline;
-}
-
-.footer-meta-row + .footer-meta-row::before {
-    content: " · ";
-}
-
 /* Contact Responsive */
 @media (max-width: 900px) {
     #contact-intro {
@@ -3539,69 +3516,6 @@ nav ul li a.active, nav ul li a:hover {
     .about-cta-actions .btn-contact {
         width: 100%;
         text-align: center;
-    }
-}
-
-@media (max-width: 480px) {
-    .statement-large,
-    #bottom-cta h3,
-    .works-cta-title,
-    .about-cta-text,
-    #contact-intro h1 {
-        text-wrap: balance;
-    }
-
-    .statement-large br,
-    .statement-copy br,
-    .bottom-cta-copy br,
-    .works-cta-title br,
-    .works-cta-copy br,
-    .about-intro-desc br,
-    .about-intro-note br,
-    .about-perspective-lead br,
-    .about-perspective-body br,
-    .scope-item p br,
-    .about-cta-text br,
-    .about-cta-desc br,
-    #contact-intro h1 br,
-    .contact-intro-desc br,
-    .contact-direct-desc br {
-        display: none;
-    }
-
-    #contact-intro h1 {
-        font-size: clamp(2rem, 9vw, 2.55rem);
-        line-height: 1.22;
-    }
-
-    .about-cta-text {
-        font-size: clamp(1.55rem, 7.8vw, 2.15rem);
-        line-height: 1.3;
-    }
-
-    .about-intro-desc,
-    .about-intro-note,
-    .about-perspective-body,
-    .about-cta-desc,
-    .contact-intro-desc,
-    .contact-direct-desc,
-    .works-cta-copy,
-    .bottom-cta-copy,
-    .statement-copy {
-        line-height: 1.72;
-    }
-
-    .contact-footer-meta {
-        max-width: 30rem;
-        line-height: 1.55;
-    }
-
-    .footer-meta-row {
-        display: block;
-    }
-
-    .footer-meta-row + .footer-meta-row::before {
-        content: none;
     }
 }
 
