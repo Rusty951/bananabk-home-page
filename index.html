@@ -18,14 +18,21 @@
         gtag('config', 'G-2FJCQ8LW6B');
     </script>
     <style>
+        .hero-eyebrow {
+            font-size: clamp(1rem, 1.4vw, 1.2rem);
+            line-height: 1.5;
+        }
+
         .works-filter-guide {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 0.8rem 1.5rem;
             margin: 0 0 2rem;
             font-size: 0.94rem;
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.68);
+            text-align: center;
         }
 
         .works-filter-guide p {
@@ -42,31 +49,6 @@
         .works-filter-guide a:hover {
             color: rgba(255, 255, 255, 0.96);
             border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .sns-bridge-section {
-            padding: 1.25rem 0 0;
-        }
-
-        .sns-bridge {
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 1.5rem;
-            text-align: center;
-        }
-
-        .sns-bridge a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.98rem;
-            color: rgba(255, 255, 255, 0.76);
-            text-decoration: none;
-            transition: color 0.25s ease, opacity 0.25s ease;
-        }
-
-        .sns-bridge a:hover {
-            color: rgba(255, 255, 255, 0.92);
         }
 
         .inquiry-section {
@@ -112,21 +94,13 @@
         }
 
         @media (max-width: 768px) {
+            .hero-eyebrow {
+                font-size: 1rem;
+            }
+
             .works-filter-guide {
                 gap: 0.65rem 1rem;
                 margin-bottom: 1.75rem;
-            }
-
-            .sns-bridge-section {
-                padding-top: 0.5rem;
-            }
-
-            .sns-bridge {
-                padding-top: 1.25rem;
-            }
-
-            .sns-bridge a {
-                font-size: 0.94rem;
             }
 
             .cta-group {
@@ -273,16 +247,6 @@
             </div>
         </section>
 
-        <section class="sns-bridge-section">
-            <div class="container">
-                <div class="sns-bridge">
-                    <a href="https://www.instagram.com/bananabk_studio/" target="_blank" rel="noopener">
-                        📸 비하인드 컷은 인스타에서 확인하세요
-                    </a>
-                </div>
-            </div>
-        </section>
-
         <!-- Bottom CTA -->
         <section id="bottom-cta">
             <div class="container">
@@ -295,14 +259,14 @@
                                class="btn-contact btn-cta-primary"
                                target="_blank"
                                rel="noopener">
-                                어떤 촬영인지 먼저 보여주세요 →
+                                카카오톡 문의
                             </a>
                             <span class="cta-label">카카오톡으로 가볍게</span>
                         </div>
 
                         <div class="cta-item">
                             <a href="./contact.html" class="btn-contact btn-cta-secondary">
-                                촬영 문의 남기기 →
+                                정식 문의 남기기
                             </a>
                             <span class="cta-label">정식 문의로 남기기</span>
                         </div>

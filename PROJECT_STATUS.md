@@ -15,6 +15,12 @@
 - 공개 페이지 파일은 홈 / 소개 / 문의 / Works 허브 / Product / Food / Dessert / Space / Portrait까지 확인
 - 각 공개 Works 페이지는 `works-data.js` 기반으로 Supabase 데이터 렌더링 구조 사용
 - `works/index.html`은 초기 정적 카드 마크업이 있고, 로드 후 함수 응답으로 덮어쓰는 구조
+- 홈 `index.html`은 최근 수정 기준으로 다음 상태:
+  - 히어로 서브카피 확대 적용
+  - Works 상단 안내 문구에 Product / Food / Dessert / Space / Portrait 포함
+  - Works 안내 문구 가운데 정렬 적용
+  - 인스타 브릿지 링크 제거
+  - 하단 CTA 버튼 문구를 `카카오톡 문의` / `정식 문의 남기기`로 통일
 
 ### Supabase
 - 운영 URL은 `gtuwmsynpdpixmhfytao.supabase.co`
@@ -53,6 +59,7 @@
 - 레거시 `hidden-portfolio.html` 삭제 완료
 - `portrait-private` 추적 누락을 반영해 현재 상태와 문서를 맞춤
 - Contact 개인정보 수집 항목에서 실제로 없는 첨부파일 항목 제거
+- 홈 `index.html`의 최근 UI 수정 내용을 문서에 반영함
 
 ### 현재 실제 상태
 - `supabase/config.toml` 기준 모든 함수는 `verify_jwt = false`
