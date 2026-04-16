@@ -124,7 +124,7 @@
                 }
 
                 return `
-                    <article class="works-manage-card" data-image-id="${escapeHtml(image.id)}">
+                    <article class="works-manage-card" data-image-id="${escapeHtml(image.id)}" draggable="true">
                         <div class="works-manage-thumb">
                             <img src="${escapeHtml(resolveImageUrl(image))}" alt="${escapeHtml(image.caption || image.category_slug)}" loading="lazy">
                             <div class="works-manage-badges">${badges.join('')}</div>
@@ -179,6 +179,101 @@
 
         categorySelect.addEventListener('change', () => {
             loadCategory(categorySelect.value);
+        });
+
+        // Add native drag and drop functionality
+        let dragSourceEl = null;
+
+        grid.addEventListener('dragstart', (event) => {
+            const card = event.target.closest('.works-manage-card');
+            if (!card) return;
+            dragSourceEl = card;
+            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.setData('text/plain', card.dataset.imageId);
+            setTimeout(() => card.classList.add('is-dragging'), 0); // let UI paint first
+        });
+
+        grid.addEventListener('dragover', (event) => {
+            event.preventDefault(); // Necessary to allow dropping
+            const card = event.target.closest('.works-manage-card');
+            if (card && card !== dragSourceEl) {
+                event.dataTransfer.dropEffect = 'move';
+                
+                // Add a simple visual cue. We remove it on dragleave/drop
+                const bounding = card.getBoundingClientRect();
+                const offset = event.clientY - bounding.top;
+                card.classList.remove('drag-over-top', 'drag-over-bottom');
+                if (offset > bounding.height / 2) {
+                    card.classList.add('drag-over-bottom');
+                } else {
+                    card.classList.add('drag-over-top');
+                }
+            }
+            return false;
+        });
+
+        grid.addEventListener('dragleave', (event) => {
+            const card = event.target.closest('.works-manage-card');
+            if (card) {
+                card.classList.remove('drag-over-top', 'drag-over-bottom');
+            }
+        });
+
+        grid.addEventListener('dragend', (event) => {
+            const card = event.target.closest('.works-manage-card');
+            if (card) {
+                card.classList.remove('is-dragging');
+            }
+            document.querySelectorAll('.works-manage-card').forEach(el => {
+                el.classList.remove('drag-over-top', 'drag-over-bottom');
+            });
+        });
+
+        grid.addEventListener('drop', async (event) => {
+            event.stopPropagation();
+            const targetCard = event.target.closest('.works-manage-card');
+            
+            document.querySelectorAll('.works-manage-card').forEach(el => {
+                el.classList.remove('drag-over-top', 'drag-over-bottom');
+            });
+
+            if (dragSourceEl && targetCard && dragSourceEl !== targetCard) {
+                const bounding = targetCard.getBoundingClientRect();
+                const offset = event.clientY - bounding.top;
+                
+                // DOM Reordering
+                if (offset > bounding.height / 2) {
+                    targetCard.after(dragSourceEl);
+                } else {
+                    targetCard.before(dragSourceEl);
+                }
+
+                // Extract new sequence
+                const newOrderedIds = Array.from(grid.querySelectorAll('.works-manage-card')).map(card => card.dataset.imageId);
+
+                setStatus(status, '새로운 배치를 일괄 저장하고 있습니다...', null);
+                
+                // Disable all buttons to prevent interference
+                grid.querySelectorAll('button').forEach(btn => btn.disabled = true);
+
+                try {
+                    const result = await postJson({
+                        mode: 'reorder',
+                        category_slug: currentCategory,
+                        ordered_ids: newOrderedIds
+                    });
+                    
+                    images = Array.isArray(result.images) ? result.images : [];
+                    renderGrid();
+                    setStatus(status, '이미지 순서가 일괄 변경되었습니다.', 'success');
+                } catch (error) {
+                    console.error(error);
+                    images = [];
+                    renderGrid();
+                    setStatus(status, error instanceof Error ? error.message : '순서 저장 중 문제가 발생했습니다.', 'error');
+                }
+            }
+            return false;
         });
 
         grid.addEventListener('click', async (event) => {

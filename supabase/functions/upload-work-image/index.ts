@@ -146,25 +146,16 @@ Deno.serve(async (request) => {
     );
   }
 
-  const { data: existingImages } = await supabaseAdmin
+  const { data: lastImage } = await supabaseAdmin
     .from("works_images")
-    .select("id, sort_order")
+    .select("sort_order")
     .eq("category_slug", categorySlug)
-    .order("sort_order", { ascending: true })
-    .order("created_at", { ascending: true });
+    .order("sort_order", { ascending: false })
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
 
-  if (existingImages && existingImages.length > 0) {
-    const shiftOffset = uploadFiles.length;
-    for (const [index, image] of existingImages.entries()) {
-      await supabaseAdmin
-        .from("works_images")
-        .update({ sort_order: shiftOffset + index })
-        .eq("id", image.id)
-        .eq("category_slug", categorySlug);
-    }
-  }
-
-  let nextSortOrder = 0;
+  let nextSortOrder = (lastImage?.sort_order ?? -1) + 1;
   const insertedImages: InsertedImage[] = [];
 
   for (const fileEntry of uploadFiles) {

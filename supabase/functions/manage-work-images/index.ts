@@ -19,6 +19,7 @@ type Payload = {
   mode?: string;
   category_slug?: string;
   image_id?: string;
+  ordered_ids?: string[];
 };
 
 type WorksImage = {
@@ -39,6 +40,10 @@ const allowedModes = new Set([
   "move-down",
   "toggle-visibility",
   "delete",
+  "reorder",
+]);
+  "delete",
+  "reorder",
 ]);
 
 const normalizeText = (value: unknown, maxLength: number): string => {
@@ -228,6 +233,22 @@ Deno.serve(async (request) => {
       ]);
       return new Response(
         JSON.stringify({ images, summary }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+
+    if (mode === "reorder") {
+      const orderedIds = payload.ordered_ids;
+      if (!Array.isArray(orderedIds)) {
+        return new Response(
+          JSON.stringify({ error: "ordered_ids 배열이 필요합니다." }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+      
+      const nextImages = await normalizeCategoryOrder(supabaseAdmin, categorySlug, orderedIds);
+      return new Response(
+        JSON.stringify({ images: nextImages }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
