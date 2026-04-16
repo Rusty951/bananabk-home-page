@@ -124,7 +124,7 @@
                 }
 
                 return `
-                    <article class="works-manage-card" data-image-id="${escapeHtml(image.id)}" draggable="true">
+                    <article class="works-manage-card${index === 0 ? ' is-hero' : ''}" data-image-id="${escapeHtml(image.id)}" draggable="true">
                         <div class="works-manage-thumb">
                             <img src="${escapeHtml(resolveImageUrl(image))}" alt="${escapeHtml(image.caption || image.category_slug)}" loading="lazy">
                             <div class="works-manage-badges">${badges.join('')}</div>

@@ -2311,6 +2311,24 @@ nav ul li a.active, nav ul li a:hover {
     transform: translateY(-4px);
 }
 
+.works-manage-card.is-hero {
+    grid-column: span 2;
+    padding: 1.5rem;
+    border-color: rgba(255, 255, 255, 0.16);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.018)),
+        rgba(255, 255, 255, 0.02);
+}
+
+.works-manage-card.is-hero .works-manage-thumb {
+    aspect-ratio: 16 / 9;
+    padding: 1rem;
+}
+
+.works-manage-card.is-hero .works-manage-caption {
+    font-size: 1.25rem;
+}
+
 .works-manage-thumb {
     position: relative;
     aspect-ratio: 5 / 4;
