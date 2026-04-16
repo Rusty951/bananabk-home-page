@@ -42,9 +42,6 @@ const allowedModes = new Set([
   "delete",
   "reorder",
 ]);
-  "delete",
-  "reorder",
-]);
 
 const normalizeText = (value: unknown, maxLength: number): string => {
   if (typeof value !== "string") {
