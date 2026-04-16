@@ -131,7 +131,7 @@
                 const uploadedCount = Array.isArray(result.records) ? result.records.length : 0;
                 const category = result.records[0]?.category_slug || '';
                 const successMessage = uploadedCount > 0
-                    ? `${uploadedCount}장의 사진을 [${category}]에 성공적으로 올렸습니다. 관리 페이지 상단에서 바로 확인하실 수 있습니다.`
+                    ? `${uploadedCount}장의 사진을 [${category}]에 성공적으로 올렸습니다. 사진이 갤러리 가장 첫 번째(대표 이미지) 순서로 반영되었습니다.`
                     : '사진 업로드가 완료되었습니다. 관리 페이지에서 확인해 주세요.';
 
                 setStatus(statusElement, successMessage, 'success');

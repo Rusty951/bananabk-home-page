@@ -112,7 +112,7 @@ const attachResolvedUrls = async (
   }));
 };
 
-const fetchCategoryImages = async (supabaseAdmin: ReturnType<typeof createClient>, categorySlug: string, ascending = false) => {
+const fetchCategoryImages = async (supabaseAdmin: ReturnType<typeof createClient>, categorySlug: string, ascending = true) => {
   const { data, error } = await supabaseAdmin
     .from("works_images")
     .select("id, category_slug, image_path, image_url, caption, sort_order, is_visible, created_at")
@@ -168,7 +168,7 @@ const normalizeCategoryOrder = async (supabaseAdmin: ReturnType<typeof createCli
     }
   }
 
-  return fetchCategoryImages(supabaseAdmin, categorySlug, false);
+  return fetchCategoryImages(supabaseAdmin, categorySlug, true);
 };
 
 Deno.serve(async (request) => {
@@ -223,7 +223,7 @@ Deno.serve(async (request) => {
 
     if (mode === "list") {
       const [images, summary] = await Promise.all([
-        fetchCategoryImages(supabaseAdmin, categorySlug, false), // 관리 페이지는 내림차순(최신순)이 기본
+        fetchCategoryImages(supabaseAdmin, categorySlug, true),
         fetchCategorySummary(supabaseAdmin),
       ]);
       return new Response(
@@ -239,7 +239,7 @@ Deno.serve(async (request) => {
       );
     }
 
-    const images = await fetchCategoryImages(supabaseAdmin, categorySlug, false);
+    const images = await fetchCategoryImages(supabaseAdmin, categorySlug, true);
     const currentIndex = images.findIndex((image) => image.id === imageId);
 
     if (currentIndex === -1) {
@@ -281,7 +281,7 @@ Deno.serve(async (request) => {
         throw error;
       }
 
-      const nextImages = await fetchCategoryImages(supabaseAdmin, categorySlug, false);
+      const nextImages = await fetchCategoryImages(supabaseAdmin, categorySlug, true);
       return new Response(
         JSON.stringify({ images: nextImages }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
