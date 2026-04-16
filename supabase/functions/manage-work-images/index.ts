@@ -112,13 +112,13 @@ const attachResolvedUrls = async (
   }));
 };
 
-const fetchCategoryImages = async (supabaseAdmin: ReturnType<typeof createClient>, categorySlug: string) => {
+const fetchCategoryImages = async (supabaseAdmin: ReturnType<typeof createClient>, categorySlug: string, ascending = false) => {
   const { data, error } = await supabaseAdmin
     .from("works_images")
     .select("id, category_slug, image_path, image_url, caption, sort_order, is_visible, created_at")
     .eq("category_slug", categorySlug)
-    .order("sort_order", { ascending: true })
-    .order("created_at", { ascending: true });
+    .order("sort_order", { ascending })
+    .order("created_at", { ascending });
 
   if (error) {
     throw error;
@@ -127,8 +127,27 @@ const fetchCategoryImages = async (supabaseAdmin: ReturnType<typeof createClient
   return attachResolvedUrls(supabaseAdmin, (data ?? []) as WorksImage[]);
 };
 
+const fetchCategorySummary = async (supabaseAdmin: ReturnType<typeof createClient>) => {
+  const { data, error } = await supabaseAdmin
+    .from("works_images")
+    .select("category_slug");
+
+  if (error) {
+    throw error;
+  }
+
+  const counts: Record<string, number> = {};
+  for (const row of (data ?? [])) {
+    const slug = row.category_slug;
+    counts[slug] = (counts[slug] || 0) + 1;
+  }
+
+  return counts;
+};
+
 const normalizeCategoryOrder = async (supabaseAdmin: ReturnType<typeof createClient>, categorySlug: string, orderedIds?: string[]) => {
-  const images = await fetchCategoryImages(supabaseAdmin, categorySlug);
+  // 로직상 정렬은 항상 오름차순(ASC)으로 가져와서 처리해야 인덱스가 꼬이지 않음
+  const images = await fetchCategoryImages(supabaseAdmin, categorySlug, true);
   const nextOrder = orderedIds && orderedIds.length
     ? orderedIds.map((id) => images.find((image) => image.id === id)).filter(Boolean)
     : images;
@@ -149,7 +168,7 @@ const normalizeCategoryOrder = async (supabaseAdmin: ReturnType<typeof createCli
     }
   }
 
-  return fetchCategoryImages(supabaseAdmin, categorySlug);
+  return fetchCategoryImages(supabaseAdmin, categorySlug, false);
 };
 
 Deno.serve(async (request) => {
@@ -203,9 +222,12 @@ Deno.serve(async (request) => {
     }
 
     if (mode === "list") {
-      const images = await fetchCategoryImages(supabaseAdmin, categorySlug);
+      const [images, summary] = await Promise.all([
+        fetchCategoryImages(supabaseAdmin, categorySlug, false), // 관리 페이지는 내림차순(최신순)이 기본
+        fetchCategorySummary(supabaseAdmin),
+      ]);
       return new Response(
-        JSON.stringify({ images }),
+        JSON.stringify({ images, summary }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
@@ -217,7 +239,7 @@ Deno.serve(async (request) => {
       );
     }
 
-    const images = await fetchCategoryImages(supabaseAdmin, categorySlug);
+    const images = await fetchCategoryImages(supabaseAdmin, categorySlug, false);
     const currentIndex = images.findIndex((image) => image.id === imageId);
 
     if (currentIndex === -1) {
@@ -259,7 +281,7 @@ Deno.serve(async (request) => {
         throw error;
       }
 
-      const nextImages = await fetchCategoryImages(supabaseAdmin, categorySlug);
+      const nextImages = await fetchCategoryImages(supabaseAdmin, categorySlug, false);
       return new Response(
         JSON.stringify({ images: nextImages }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },

@@ -63,6 +63,7 @@
         const grid = document.getElementById('works-manage-grid');
         const empty = document.getElementById('works-manage-empty');
         const status = document.getElementById('works-manage-status');
+        const summaryElement = document.getElementById('works-manage-summary');
 
         if (!panel || !categorySelect || !grid || !empty || !status) {
             return;
@@ -155,7 +156,18 @@
                 });
                 images = Array.isArray(result.images) ? result.images : [];
                 renderGrid();
-                setStatus(status, `총 ${images.length}개의 이미지를 불러왔습니다.`, 'success');
+
+                const summary = result.summary || {};
+                if (summaryElement) {
+                    const summaryParts = Object.entries(summary)
+                        .filter(([slug]) => slug !== 'all')
+                        .map(([slug, count]) => `<span class="summary-item"><strong>${escapeHtml(slug)}:</strong> ${count}</span>`);
+                    summaryElement.innerHTML = summaryParts.length 
+                        ? `<p class="works-manage-summary-text">카테고리 현황: ${summaryParts.join(' · ')}</p>` 
+                        : '';
+                }
+
+                setStatus(status, `총 ${images.length}개의 이미지를 최신순으로 불러왔습니다.`, 'success');
             } catch (error) {
                 console.error(error);
                 images = [];

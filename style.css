@@ -2239,6 +2239,31 @@ nav ul li a.active, nav ul li a:hover {
     font-size: 0.98rem;
 }
 
+.works-manage-summary {
+    margin-top: 1rem;
+    padding: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.works-manage-summary-text {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(239, 234, 226, 0.82);
+}
+
+.works-manage-summary-text .summary-item {
+    display: inline-block;
+    margin-right: 0.75rem;
+}
+
+.works-manage-summary-text .summary-item strong {
+    color: #f2eee7;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
 .works-manage-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -129,9 +129,10 @@
                 updateFileMeta();
 
                 const uploadedCount = Array.isArray(result.records) ? result.records.length : 0;
+                const category = result.records[0]?.category_slug || '';
                 const successMessage = uploadedCount > 0
-                    ? `${uploadedCount}장이 업로드되었습니다. ${result.records[0]?.category_slug || ''} 카테고리의 마지막 순서 뒤에 이어서 추가되었습니다.`
-                    : '업로드와 DB row 생성이 완료되었습니다.';
+                    ? `${uploadedCount}장의 사진을 [${category}]에 성공적으로 올렸습니다. 관리 페이지 상단에서 바로 확인하실 수 있습니다.`
+                    : '사진 업로드가 완료되었습니다. 관리 페이지에서 확인해 주세요.';
 
                 setStatus(statusElement, successMessage, 'success');
             } catch (error) {
