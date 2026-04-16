@@ -3734,3 +3734,41 @@ nav ul li a.active, nav ul li a:hover {
 .contact-page .contact-text-link:hover {
     color: #eceeea;
 }
+
+/* --- Small Device Optimization (Target: Galaxy S25 & Small Phones, Exclude iPhone Pro Max) --- */
+@media (max-width: 400px) {
+    .works-manage-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .works-manage-card.is-hero {
+        grid-column: auto;
+        padding: 1.25rem 1rem;
+    }
+
+    .works-manage-card {
+        padding: 1rem 0.85rem;
+    }
+
+    .works-manage-thumb {
+        aspect-ratio: 16 / 9; /* 작은 화면에선 일반 카드도 가로형이 보기 편함 */
+    }
+
+    .works-manage-card.is-hero .works-manage-thumb {
+        aspect-ratio: 16 / 9;
+    }
+
+    .works-manage-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 버튼을 2x2로 정돈 */
+        gap: 0.5rem;
+    }
+
+    .works-manage-actions button {
+        margin: 0 !important;
+        width: 100% !important;
+        padding: 0.8rem 0.5rem !important;
+        font-size: 0.8rem !important;
+    }
+}
