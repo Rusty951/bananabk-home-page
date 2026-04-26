@@ -8,6 +8,7 @@
     const defaultFunctionsBaseUrl = `${supabaseUrl}/functions/v1`;
     const functionsBaseUrl = configuredFunctionsBaseUrl || defaultFunctionsBaseUrl;
     const fallbackFunctionsBaseUrl = functionsBaseUrl;
+    const useWorksFunction = publicConfig.useWorksFunction === true || Boolean(configuredFunctionsBaseUrl);
 
     if (!supabaseUrl || !supabaseAnonKey || supabaseUrl.includes('YOUR_PROJECT_ID') || supabaseAnonKey.includes('YOUR_SUPABASE_ANON_KEY')) {
         return;
@@ -68,6 +69,19 @@
         return response.json();
     };
 
+    const optimizeStorageImageUrl = (url) => {
+        if (!url || !url.includes('/storage/v1/object/public/works/')) {
+            return url;
+        }
+
+        const [baseUrl, query = ''] = url.split('?');
+        const params = new URLSearchParams(query);
+        params.set('width', params.get('width') || '1600');
+        params.set('quality', params.get('quality') || '82');
+
+        return `${baseUrl.replace('/storage/v1/object/public/works/', '/storage/v1/render/image/public/works/')}?${params.toString()}`;
+    };
+
     const requestFunctionWithBaseUrl = async (baseUrl, path) => {
         const response = await fetch(`${baseUrl}/${path}`, {
             headers: defaultHeaders
@@ -115,7 +129,7 @@
 
         if (url) {
             const localBaseUrl = supabaseUrl && supabaseUrl.includes('127.0.0.1') ? supabaseUrl : 'http://127.0.0.1:54321';
-            return url.replace(/^http:\/\/kong:8000/, localBaseUrl);
+            return optimizeStorageImageUrl(url.replace(/^http:\/\/kong:8000/, localBaseUrl));
         }
 
         if (image && image.image_path) {
@@ -126,7 +140,7 @@
                 .replace(/^works\//, '');
 
             if (normalizedPath) {
-                return `${supabaseUrl}/storage/v1/object/public/works/${normalizedPath}`;
+                return optimizeStorageImageUrl(`${supabaseUrl}/storage/v1/object/public/works/${normalizedPath}`);
             }
         }
 
@@ -144,7 +158,7 @@
         }
 
         heroContainer.innerHTML = `
-            <img src="${escapeHtml(fallbackSrc)}" alt="${escapeHtml(heroContainer.dataset.fallbackAlt || altText)}" class="${layout.imageClass}">
+            <img src="${escapeHtml(fallbackSrc)}" alt="${escapeHtml(heroContainer.dataset.fallbackAlt || altText)}" class="${layout.imageClass}" decoding="async" fetchpriority="high">
         `;
         return true;
     };
@@ -180,17 +194,22 @@
         let categories = [];
         let firstImageBySlug = new Map();
 
-        try {
-            const result = await fetchFromFunction('get-works-content?mode=hub');
-            categories = Array.isArray(result.categories) ? result.categories : [];
+        if (useWorksFunction) {
+            try {
+                const result = await fetchFromFunction('get-works-content?mode=hub');
+                categories = Array.isArray(result.categories) ? result.categories : [];
 
-            Object.entries(result.firstImageBySlug || {}).forEach(([slug, image]) => {
-                if (image) {
-                    firstImageBySlug.set(slug, image);
-                }
-            });
-        } catch (functionError) {
-            console.warn('Failed to load hub from function, falling back to REST.', functionError);
+                Object.entries(result.firstImageBySlug || {}).forEach(([slug, image]) => {
+                    if (image) {
+                        firstImageBySlug.set(slug, image);
+                    }
+                });
+            } catch (functionError) {
+                console.warn('Failed to load hub from function, falling back to REST.', functionError);
+            }
+        }
+
+        if (!categories.length) {
             categories = await fetchFromSupabase('works_categories?select=slug,name,title,description,is_public,sort_order&is_public=eq.true&order=sort_order.asc');
 
             if (!categories.length) {
@@ -220,7 +239,7 @@
             return `
                 <a href="${buildCategoryPageHref(category.slug)}" class="works-card${portraitModifier} reveal">
                     <div class="image-area">
-                        <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(imageAlt)}" class="works-card-image">
+                        <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(imageAlt)}" class="works-card-image" loading="lazy" decoding="async">
                     </div>
                     <div class="text-area">
                         <h2 class="serif works-card-title">${escapeHtml(category.title || category.name)}</h2>
@@ -247,7 +266,7 @@
                 <div class="works-gallery-grid works-gallery-grid--${layout}">
                     ${images.map((image, index) => `
                         <figure class="works-gallery-card${index === 0 ? ' is-first' : ''}">
-                            <img src="${escapeHtml(resolveImageUrl(image))}" alt="${escapeHtml(image.caption || image.category_slug)}" class="${imageClass}">
+                            <img src="${escapeHtml(resolveImageUrl(image))}" alt="${escapeHtml(image.caption || image.category_slug)}" class="${imageClass}" loading="lazy" decoding="async">
                             ${image.caption ? `<figcaption class="works-gallery-caption">${escapeHtml(image.caption)}</figcaption>` : ''}
                         </figure>
                     `).join('')}
@@ -280,13 +299,18 @@
         let category = null;
         let images = [];
 
-        try {
-            const result = await fetchFromFunction(`get-works-content?mode=category&slug=${encodeURIComponent(categorySlug)}`);
-            categories = Array.isArray(result.categories) ? result.categories : [];
-            category = result.category || null;
-            images = Array.isArray(result.images) ? result.images : [];
-        } catch (functionError) {
-            console.warn(`Failed to load category ${categorySlug} from function, falling back to REST.`, functionError);
+        if (useWorksFunction) {
+            try {
+                const result = await fetchFromFunction(`get-works-content?mode=category&slug=${encodeURIComponent(categorySlug)}`);
+                categories = Array.isArray(result.categories) ? result.categories : [];
+                category = result.category || null;
+                images = Array.isArray(result.images) ? result.images : [];
+            } catch (functionError) {
+                console.warn(`Failed to load category ${categorySlug} from function, falling back to REST.`, functionError);
+            }
+        }
+
+        if (!category) {
             categories = await fetchFromSupabase('works_categories?select=slug,name,title,description,is_public,sort_order&order=sort_order.asc');
             category = categories.find((item) => item.slug === categorySlug) || null;
 
@@ -338,7 +362,7 @@
         }
 
         heroContainer.innerHTML = `
-            <img src="${escapeHtml(resolveImageUrl(images[0]))}" alt="${escapeHtml(images[0].caption || `${category.name} hero`)}" class="${layout.imageClass}">
+            <img src="${escapeHtml(resolveImageUrl(images[0]))}" alt="${escapeHtml(images[0].caption || `${category.name} hero`)}" class="${layout.imageClass}" decoding="async" fetchpriority="high">
         `;
 
         const remainingImages = images.slice(1);

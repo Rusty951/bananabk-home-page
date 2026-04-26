@@ -69,7 +69,7 @@
   - `5cced61b2b11e.jpg` (portrait hero)
   - `30e31ad2d4316.jpg`
   - `8ca1cc9bc0acb.jpg`
-  - `69349b8668aad.png`
+  - `69349b8668aad.jpg` (food hero, PNG 원본에서 경량화)
   - `product-hero-blue.jpg`
 
 ---
