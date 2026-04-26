@@ -1,6 +1,6 @@
 # PROJECT STATUS — Banana Black Website
 
-> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-04-15 (디버깅 완료)
+> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-04-27 (모바일 QA / 배포 준비 반영)
 
 ---
 
@@ -30,11 +30,25 @@
 - 모바일에서 헤더 ~ works-local-nav 겹침 현상 수정 완료 (padding-top 92px → 152px)
 - 푸터 네비 Contact 줄 떨어짐 수정 완료
 - About / Contact 카피 모바일 줄바꿈 안정화 완료
+- 360 / 390 / 430 모바일 QA 기준으로 주요 문구 줄바꿈 고정 완료
+- Home / About / Contact / Works 상세 / portrait-private 하단 CTA 문구 모바일 줄바꿈 정리 완료
+- About 메타 태그 3개 항목 모바일 세로 정렬 완료
+- 푸터 사업자 / 연락처 메타 문구 모바일 2줄 고정 완료
 
 ### 코드 디버깅 (2026-04-15)
 - 전체 HTML / JS 디버깅 완료, 중대 버그 없음 확인
 - `product.html` — `<script defer>` 불일치 수정 (다른 페이지와 통일)
 - `index.html` / `about.html` — `public-config.js` 로드 추가 (일관성)
+
+### 배포 준비 설정 (2026-04-27)
+- `vercel.json` 추가 완료
+- Vercel `cleanUrls` 활성화 기준으로 `/works/product` 형태 URL 지원 준비
+- 공개/내부 HTML 링크를 clean URL 기준으로 정리 완료
+- `.vercelignore` 추가 완료 — 문서 / Supabase 소스 / 로컬 환경 파일 배포 번들 제외
+- `mobile-preview.html` 추가 완료 — 360 / 390 / 430 로컬 모바일 검수 전용, 배포 제외
+- `robots.txt` 추가 완료
+- 내부 운영 페이지 (`upload`, `manage`, `portrait-private`) 검색 제외 규칙 추가 완료
+- `main.js`의 `/works/{slug}` → `/works/{slug}.html` 주소 보정 제거 완료
 
 ### Supabase Edge Functions (로컬 검증 완료)
 - `get-works-content` — works 이미지/카테고리 조회
@@ -56,7 +70,7 @@
 
 ### Vercel 배포
 - 정적 사이트 배포 미완료
-- 배포 설정 파일 없음 (vercel.json 없음)
+- 배포 설정 파일 추가 완료 (`vercel.json`)
 
 ### Contact 운영 연결
 - 로컬 검증만 완료, 운영 환경 미연결
@@ -77,6 +91,8 @@
 - `works/portrait-private.html` 존재 (비공개 내부 페이지)
 - 공개 works 카테고리 네비에는 미노출 상태
 - `works/portrait-private.html`, `works/upload.html`, `works/manage.html`에 `noindex, nofollow` 반영 완료
+- 하단 CTA 타이틀을 `로케이션 인물 촬영에도` 기준으로 변경 완료
+- 하단 CTA 문구 모바일 줄바꿈 정리 완료
 
 ---
 
@@ -91,4 +107,4 @@
 
 ## 한 줄 요약
 
-공개 사이트는 배포 준비 완료 상태. Vercel 배포와 Contact 운영 연결만 남음.
+공개 사이트는 정적 배포 설정과 모바일 360 / 390 / 430 줄바꿈 QA까지 정리 완료 상태. 실제 Vercel 배포와 Contact 운영 연결만 남음.

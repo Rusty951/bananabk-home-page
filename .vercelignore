@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+*.local
+
+PRD.md
+PROJECT_GUIDE.md
+PROJECT_STATUS.md
+mobile-preview.html
+
+supabase/

@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /works/upload
+Disallow: /works/upload.html
+Disallow: /works/manage
+Disallow: /works/manage.html
+Disallow: /works/portrait-private
+Disallow: /works/portrait-private.html

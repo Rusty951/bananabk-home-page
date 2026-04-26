@@ -1,7 +1,7 @@
 # PROJECT GUIDE — Banana Black Website
 
 > 다음 작업 전에 먼저 읽는 기준 문서입니다.
-> 마지막 업데이트: 2026-04-15
+> 마지막 업데이트: 2026-04-27
 
 ## 프로젝트 목적
 
@@ -42,6 +42,15 @@
 
 ## 인프라 구조
 
+### Vercel
+- 정적 사이트 배포 기준
+- `vercel.json`에서 `cleanUrls: true`, `trailingSlash: false` 적용
+- 공개 URL 방향은 `/works/product`처럼 `.html` 없는 URL 기준
+- HTML 내부 링크도 clean URL 기준으로 유지
+- 내부 운영 페이지는 HTML `noindex, nofollow`와 Vercel `X-Robots-Tag` 헤더를 함께 사용
+- `.vercelignore`에서 문서 / Supabase 소스 / 로컬 환경 파일은 배포 번들에서 제외
+- `mobile-preview.html`은 로컬 모바일 검수 전용이며 `.vercelignore`로 배포에서 제외
+
 ### Supabase
 - 운영 URL: `https://gtuwmsynpdpixmhfytao.supabase.co`
 - Edge Functions:
@@ -79,12 +88,18 @@
 - 헤더: `position: fixed`, 모바일에서 column 레이아웃 (~147px 높이)
 - `works-local-nav` padding-top: 모바일 152px / 데스크톱 92px
 - `works-landing-intro` padding-bottom: 모바일 5rem / 데스크톱 1.5rem
+- 작은 모바일 검수 기준 폭: 360 / 390 / 430
+- 로컬 검수 URL: `http://127.0.0.1:4173/mobile-preview.html`
+- 주요 카피는 `*-line` span 블록으로 모바일 줄바꿈을 고정
+- 모바일 핵심 문구는 `<br>` 의존보다 전용 line 클래스를 우선 사용
+- 푸터 연락처 / 사업자 메타 문구는 모바일에서 2줄 고정
+- About 메타 태그 3개 항목은 430 이하에서 세로 정렬 유지
 
 ---
 
 ## 남은 작업 우선순위
 
-1. **Vercel 배포** — 공개 사이트 정적 배포
+1. **Vercel 배포** — `vercel.json` 기준으로 공개 사이트 정적 배포
 2. **Contact 운영 연결** — 아래 체크리스트 참고
 3. **Works 운영툴 안정화** — upload / manage 안정화 후 내부 운영 개시
 

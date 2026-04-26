@@ -3,25 +3,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('main-header');
     const publicConfig = window.BANANABK_PUBLIC_CONFIG || {};
-    const worksStaticPages = new Set(['index', 'product', 'food', 'dessert', 'space', 'portrait', 'portrait-private', 'upload', 'manage']);
-
-    const normalizeWorksStaticPath = () => {
-        const { pathname, search, hash } = window.location;
-        const match = pathname.match(/^\/works\/([a-z-]+)\/?$/);
-
-        if (!match) {
-            return;
-        }
-
-        const slug = match[1];
-        if (!worksStaticPages.has(slug)) {
-            return;
-        }
-
-        window.history.replaceState(null, '', `/works/${slug}.html${search}${hash}`);
-    };
-
-    normalizeWorksStaticPath();
     
     // GA4: 카카오 문의 버튼 클릭 추적 (이벤트 위임 — 모든 카카오 링크 공통)
     document.addEventListener('click', (event) => {

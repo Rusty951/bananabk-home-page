@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Small Phone Preview | Banana Black</title>
+    <style>
+        :root {
+            --preview-width: 360;
+            --preview-scale: 1;
+            --toolbar-height: 48px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            background: #e9e9e9;
+            color: #111;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .preview-toolbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            min-height: var(--toolbar-height);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.42rem 0.6rem;
+            overflow-x: auto;
+            background: #101010;
+            color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            scrollbar-width: none;
+        }
+
+        .preview-toolbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .preview-title {
+            flex: 0 0 auto;
+            margin-right: 0.2rem;
+            font-size: 0.74rem;
+            font-weight: 700;
+            line-height: 1.15;
+            white-space: nowrap;
+        }
+
+        .preview-group {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.32rem;
+            flex: 0 0 auto;
+        }
+
+        .preview-separator {
+            flex: 0 0 auto;
+            width: 1px;
+            height: 1.35rem;
+            margin: 0 0.12rem;
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        button {
+            flex: 0 0 auto;
+            min-height: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 999px;
+            padding: 0.4rem 0.62rem;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            font-size: 0.74rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        button.is-active {
+            border-color: #f0cf71;
+            background: rgba(240, 207, 113, 0.14);
+            color: #ffe4a0;
+        }
+
+        .preview-stage {
+            position: fixed;
+            inset: var(--toolbar-height) 0 0 0;
+            overflow: auto;
+            padding: 0.65rem 0;
+            background:
+                linear-gradient(90deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.24)),
+                #e9e9e9;
+        }
+
+        .preview-scale-box {
+            width: calc(var(--preview-width) * 1px * var(--preview-scale));
+            min-height: calc((100vh - var(--toolbar-height) - 1.3rem) * var(--preview-scale));
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .preview-frame {
+            width: calc(var(--preview-width) * 1px);
+            height: calc((100vh - var(--toolbar-height) - 1.3rem) / var(--preview-scale));
+            min-height: 720px;
+            display: block;
+            border: 0;
+            background: #fff;
+            transform: scale(var(--preview-scale));
+            transform-origin: top left;
+        }
+
+        @media (max-width: 520px) {
+            .preview-title {
+                display: none;
+            }
+
+            .preview-toolbar {
+                gap: 0.38rem;
+                padding-left: 0.45rem;
+                padding-right: 0.45rem;
+            }
+
+            button {
+                padding-left: 0.52rem;
+                padding-right: 0.52rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="preview-toolbar" aria-label="Small phone preview controls">
+        <strong class="preview-title">Small phone QA</strong>
+        <div class="preview-group" aria-label="Pages">
+            <button type="button" data-src="/" data-kind="page">Home</button>
+            <button type="button" data-src="/about.html" data-kind="page">About</button>
+            <button type="button" data-src="/contact.html" data-kind="page" class="is-active">Contact</button>
+            <button type="button" data-src="/works/product.html" data-kind="page">Product</button>
+            <button type="button" data-src="/works/food.html" data-kind="page">Food</button>
+            <button type="button" data-src="/works/dessert.html" data-kind="page">Dessert</button>
+            <button type="button" data-src="/works/space.html" data-kind="page">Space</button>
+            <button type="button" data-src="/works/portrait.html" data-kind="page">Portrait</button>
+        </div>
+        <span class="preview-separator" aria-hidden="true"></span>
+        <div class="preview-group" aria-label="Widths">
+            <button type="button" data-width="360" data-kind="width" class="is-active">360</button>
+            <button type="button" data-width="390" data-kind="width">390</button>
+            <button type="button" data-width="430" data-kind="width">430</button>
+        </div>
+    </header>
+
+    <main class="preview-stage">
+        <div class="preview-scale-box">
+            <iframe class="preview-frame" title="Small phone preview" src="/contact.html"></iframe>
+        </div>
+    </main>
+
+    <script>
+        const root = document.documentElement;
+        const frame = document.querySelector('.preview-frame');
+        const toolbar = document.querySelector('.preview-toolbar');
+        const pageButtons = Array.from(document.querySelectorAll('[data-kind="page"]'));
+        const widthButtons = Array.from(document.querySelectorAll('[data-kind="width"]'));
+        let previewWidth = 360;
+
+        const syncScale = () => {
+            const toolbarHeight = Math.ceil(toolbar.getBoundingClientRect().height);
+            const availableWidth = Math.max(0, window.innerWidth - 20);
+            const nextScale = Math.max(1, Math.min(1.8, availableWidth / previewWidth));
+            root.style.setProperty('--toolbar-height', `${toolbarHeight}px`);
+            root.style.setProperty('--preview-width', previewWidth);
+            root.style.setProperty('--preview-scale', nextScale.toFixed(4));
+        };
+
+        pageButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                pageButtons.forEach((item) => item.classList.toggle('is-active', item === button));
+                frame.src = `${button.dataset.src}?preview=${Date.now()}`;
+            });
+        });
+
+        widthButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                previewWidth = Number(button.dataset.width);
+                widthButtons.forEach((item) => item.classList.toggle('is-active', item === button));
+                syncScale();
+            });
+        });
+
+        window.addEventListener('resize', syncScale);
+        syncScale();
+    </script>
+</body>
+</html>
