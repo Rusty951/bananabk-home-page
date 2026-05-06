@@ -1,5 +1,5 @@
 (function () {
-    const SUPABASE_URL = 'https://gtuwmsynpdbjxmhfytao.supabase.co';
+    const SUPABASE_URL = 'https://gtuwmsynpdpixmhfytao.supabase.co';
     const STORAGE_BASE_URL = `${SUPABASE_URL}/storage/v1/object/public/works/`;
 
     const escapeHtml = (value) => String(value || '')

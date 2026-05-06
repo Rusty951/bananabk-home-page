@@ -58,6 +58,11 @@
   - `upload-work-image` — 이미지 업로드 → Storage 저장 + works_images row 생성
   - `manage-work-images` — 정렬 / 숨김 / 삭제
   - `submit-contact-inquiry` — 문의 저장 + 관리자 메일 발송
+- RLS 기준:
+  - `contact_inquiries` — anon/authenticated 직접 접근 금지, Edge Function service role 전용
+  - `works_categories` — 공개/비공개 직접 링크 렌더링을 위해 anon/authenticated select만 허용
+  - `works_images` — `is_visible = true` row만 anon/authenticated select 허용
+  - works 관련 insert/update/delete는 Edge Function service role 전용
 
 ### 인증 / 접근 방식
 - 현재 `supabase/config.toml` 기준으로 4개 Edge Function 모두 `verify_jwt = false`

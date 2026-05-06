@@ -1,6 +1,6 @@
 # PROJECT STATUS — Banana Black Website
 
-> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-04-27 (모바일 QA / 배포 준비 반영)
+> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-05-06 (Supabase RLS 보안 경고 대응 적용 확인)
 
 ---
 
@@ -58,6 +58,13 @@
 
 ### 현재 설정 기준
 - `supabase/config.toml` 기준 4개 Edge Function 모두 `verify_jwt = false`
+- `supabase/migrations/202605060001_harden_public_table_rls.sql` 추가 완료
+- 운영 DB RLS 보강 SQL 실행 완료
+- RLS 목표 상태:
+  - `contact_inquiries` 직접 anon/authenticated 접근 차단
+  - `works_categories` select만 공개 허용
+  - `works_images` visible row select만 공개 허용
+  - Works 쓰기/수정/삭제와 문의 저장/알림 갱신은 service role Edge Function 전용
 
 ### Contact
 - 로컬 기준 `contact_inquiries` DB 저장 확인
@@ -80,6 +87,15 @@
   - [ ] Supabase secrets 등록
   - [ ] `submit-contact-inquiry` 운영 배포
   - [ ] 운영 환경 실제 제출 테스트
+
+### Supabase RLS 운영 적용
+- Supabase 보안 메일 기준 `rls_disabled_in_public` 경고 확인
+- 운영 REST API에서 anon 키로 `contact_inquiries` 조회 가능 상태 확인
+- Supabase Dashboard SQL Editor로 RLS 보강 SQL 실행 완료
+- anon 키로 `contact_inquiries` 조회 시 `permission denied for table contact_inquiries` 확인
+- anon 키로 `works_categories`, `works_images` 공개 조회 정상 확인
+- 남은 것:
+  - [ ] Supabase Security Advisor 경고 해소 확인
 
 ### Works 내부 운영툴 (보류)
 - `works/upload.html` / `works/manage.html`
