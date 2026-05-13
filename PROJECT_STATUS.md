@@ -1,6 +1,6 @@
 # PROJECT STATUS — Banana Black Website
 
-> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-05-06 (Supabase RLS 보안 경고 대응 적용 확인)
+> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-05-13 (Supabase CLI 링크 / 운영 함수·시크릿 상태 확인)
 
 ---
 
@@ -11,6 +11,7 @@
 - `main` 브랜치 최신 커밋 반영 완료
 - `supabase/.env.local` — `.gitignore` 처리 완료
 - Supabase 운영 프로젝트 연결 완료 (`gtuwmsynpdpixmhfytao.supabase.co`)
+- Supabase CLI 로컬 링크 완료 (`gtuwmsynpdpixmhfytao`)
 - Supabase 프로젝트 ID 오타 수정 완료 (bjx → pix)
 
 ### Analytics
@@ -59,6 +60,8 @@
 ### 현재 설정 기준
 - `supabase/config.toml` 기준 4개 Edge Function 모두 `verify_jwt = false`
 - `supabase/migrations/202605060001_harden_public_table_rls.sql` 추가 완료
+- 운영 Edge Function 4개 ACTIVE 확인
+- 운영 Supabase secrets 등록 확인 (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_ANON_KEY`, `SUPABASE_DB_URL`, `RESEND_API_KEY`, `MAIL_FROM`, `ADMIN_NOTIFICATION_EMAIL`)
 - 운영 DB RLS 보강 SQL 실행 완료
 - RLS 목표 상태:
   - `contact_inquiries` 직접 anon/authenticated 접근 차단
@@ -70,6 +73,7 @@
 - 로컬 기준 `contact_inquiries` DB 저장 확인
 - 로컬 기준 관리자 메일 알림 확인
 - `DB 우선 저장 → 메일 후발송` 구조 검증 완료
+- 운영 `submit-contact-inquiry` OPTIONS/CORS 응답 정상 확인
 
 ---
 
@@ -80,12 +84,11 @@
 - 배포 설정 파일 추가 완료 (`vercel.json`)
 
 ### Contact 운영 연결
-- 로컬 검증만 완료, 운영 환경 미연결
+- 로컬 저장/메일 검증 완료
+- 운영 함수와 secrets 등록 확인 완료
 - 남은 것:
   - [ ] Resend 도메인 인증
-  - [ ] `MAIL_FROM` 운영 주소 확정
-  - [ ] Supabase secrets 등록
-  - [ ] `submit-contact-inquiry` 운영 배포
+  - [ ] `MAIL_FROM` 운영 주소 최종 확인
   - [ ] 운영 환경 실제 제출 테스트
 
 ### Supabase RLS 운영 적용
@@ -96,6 +99,17 @@
 - anon 키로 `works_categories`, `works_images` 공개 조회 정상 확인
 - 남은 것:
   - [ ] Supabase Security Advisor 경고 해소 확인
+
+### Supabase Edge Functions
+- 운영 함수 목록 ACTIVE 확인:
+  - `get-works-content`
+  - `upload-work-image`
+  - `manage-work-images`
+  - `submit-contact-inquiry`
+- `get-works-content`는 Supabase Function URL에 trailing slash가 있어야 쿼리 파라미터가 정상 전달되는 것을 확인함. `works/works-data.js`에서 함수 URL 생성 시 trailing slash를 보장하도록 보정 완료:
+  - 정상: `/functions/v1/get-works-content/?mode=hub`
+  - 400: `/functions/v1/get-works-content?mode=hub`
+- 현재 공개 Works 렌더링은 `useWorksFunction: false`라 REST 경로를 사용하므로 공개 화면 영향 없음
 
 ### Works 내부 운영툴 (보류)
 - `works/upload.html` / `works/manage.html`
@@ -115,7 +129,7 @@
 ## 다음 작업 순서
 
 1. Vercel 배포 → 공개 URL 확보
-2. 운영 Supabase secrets 등록 + submit-contact-inquiry 운영 배포
+2. Resend 도메인 / `MAIL_FROM` 운영 주소 최종 확인
 3. 운영 환경에서 Contact 실제 제출 테스트
 4. Works upload / manage 안정화
 
@@ -123,4 +137,4 @@
 
 ## 한 줄 요약
 
-공개 사이트는 정적 배포 설정과 모바일 360 / 390 / 430 줄바꿈 QA까지 정리 완료 상태. 실제 Vercel 배포와 Contact 운영 연결만 남음.
+공개 사이트는 정적 배포 설정과 모바일 360 / 390 / 430 줄바꿈 QA까지 정리 완료 상태. Supabase 운영 함수·시크릿·RLS는 확인 완료, 실제 Vercel 배포와 Contact 운영 제출 테스트가 남음.

@@ -82,8 +82,13 @@
         return `${baseUrl.replace('/storage/v1/object/public/works/', '/storage/v1/render/image/public/works/')}?${params.toString()}`;
     };
 
+    const buildFunctionUrl = (baseUrl, path) => {
+        const [functionName, query = ''] = String(path).split('?');
+        return `${baseUrl}/${functionName}/${query ? `?${query}` : ''}`;
+    };
+
     const requestFunctionWithBaseUrl = async (baseUrl, path) => {
-        const response = await fetch(`${baseUrl}/${path}`, {
+        const response = await fetch(buildFunctionUrl(baseUrl, path), {
             headers: defaultHeaders
         });
 
