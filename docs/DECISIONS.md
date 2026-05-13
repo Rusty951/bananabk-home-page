@@ -1,5 +1,53 @@
 # Decisions
 
+## 2026-05-14: Works Storage 객체 목록 조회 차단
+
+결정:
+
+- Supabase Security Advisor의 `public_bucket_allows_listing` 경고 대응을 위해 `works` bucket의 broad `storage.objects` SELECT policy를 제거한다.
+- `works` bucket은 public bucket으로 유지해 공개 이미지 URL 접근은 유지한다.
+- Storage 업로드/관리 작업은 기존처럼 Edge Function service_role 경로로 처리한다.
+
+이유:
+
+- 공개 포트폴리오 이미지는 URL로 렌더링되어야 하지만, 클라이언트가 bucket 전체 파일 목록을 조회할 필요는 없다.
+- public bucket은 객체 URL 접근에 별도의 broad SELECT policy가 필요하지 않다.
+
+영향 문서:
+
+- `PROJECT_STATUS.md`
+
+검증:
+
+- Supabase Security Advisor를 다시 실행한다.
+- 공개 이미지 URL 접근과 Works REST 조회가 유지되는지 확인한다.
+
+## 2026-05-14: Supabase Data API 명시 GRANT 기준 적용
+
+결정:
+
+- Supabase의 2026 public schema Data API 권한 변경에 대비해 기존 public 테이블 권한을 명시적으로 재확인하는 마이그레이션을 추가한다.
+- `works_categories`, `works_images`는 anon/authenticated에 `select`만 부여한다.
+- `contact_inquiries`는 anon/authenticated 권한을 제거하고 service_role 전용으로 유지한다.
+- 앞으로 새 public 테이블을 만들 때는 `grant` + RLS + policy를 같은 작업 단위에서 작성한다.
+
+이유:
+
+- Supabase가 public schema 테이블의 Data API 자동 노출 기본값을 변경한다.
+- 이전 기본 권한 때문에 공개 렌더링 테이블에 `select` 외 권한이 남을 수 있으므로, 의도한 최소 권한으로 재고정한다.
+
+영향 문서:
+
+- `PROJECT_GUIDE.md`
+- `docs/TRD.md`
+- `PROJECT_STATUS.md`
+
+검증:
+
+- 운영 DB 권한 조회로 현재 GRANT 상태를 확인한다.
+- 저장소 check 명령으로 JS/TS 문법 검사를 통과시킨다.
+- 운영 DB 적용 후 anon 키로 공개 works 조회와 contact_inquiries 차단을 재확인한다.
+
 ## 2026-05-06: Supabase public table RLS 보강
 
 결정:

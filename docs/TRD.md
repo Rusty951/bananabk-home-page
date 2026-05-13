@@ -48,6 +48,9 @@
 - `works_images`: `is_visible = true`인 row만 anon/authenticated `select`를 허용한다.
 - Works 업로드, 정렬, 숨김, 삭제는 `upload-work-image`, `manage-work-images` Edge Function의 service role로만 수행한다.
 - 운영 DB에 Supabase 보안 경고가 뜨면 `supabase/migrations/*harden_public_table_rls.sql` 기준으로 RLS와 권한을 먼저 확인한다.
+- Supabase 2026 Data API 권한 변경에 대비해 public schema 테이블은 생성 마이그레이션 또는 후속 보강 마이그레이션에서 명시적인 `grant`를 반드시 둔다.
+- 새 public 테이블을 Data API에 노출할 때는 필요한 권한만 부여한다. 공개 읽기 테이블은 `grant select ... to anon, authenticated`, 내부/개인정보 테이블은 `grant all ... to service_role`만 사용한다.
+- `grant` 이후에도 RLS와 정책을 별도로 작성한다. GRANT는 API 접근 문이고, RLS는 row 단위 조건이다.
 
 ## Definition of Done
 

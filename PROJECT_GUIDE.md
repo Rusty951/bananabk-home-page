@@ -63,6 +63,11 @@
   - `works_categories` — 공개/비공개 직접 링크 렌더링을 위해 anon/authenticated select만 허용
   - `works_images` — `is_visible = true` row만 anon/authenticated select 허용
   - works 관련 insert/update/delete는 Edge Function service role 전용
+- Data API 권한 기준:
+  - public schema 새 테이블은 명시적인 `grant` 없이는 Data API 노출을 전제하지 않음
+  - 공개 렌더링 테이블은 anon/authenticated `select`만 부여
+  - 개인정보/내부 운영 테이블은 service_role 전용으로 유지
+  - 새 마이그레이션에는 `grant` + RLS + policy를 함께 작성
 
 ### 인증 / 접근 방식
 - 현재 `supabase/config.toml` 기준으로 4개 Edge Function 모두 `verify_jwt = false`

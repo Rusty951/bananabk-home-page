@@ -1,6 +1,6 @@
 # PROJECT STATUS — Banana Black Website
 
-> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-05-13 (Supabase CLI 링크 / 운영 함수·시크릿 상태 확인)
+> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-05-14 (Supabase Data API explicit GRANT 대응)
 
 ---
 
@@ -60,14 +60,21 @@
 ### 현재 설정 기준
 - `supabase/config.toml` 기준 4개 Edge Function 모두 `verify_jwt = false`
 - `supabase/migrations/202605060001_harden_public_table_rls.sql` 추가 완료
+- `supabase/migrations/202605140001_lock_public_data_api_grants.sql` 추가 완료
+- `supabase/migrations/202605140002_restrict_works_storage_listing.sql` 추가 완료
 - 운영 Edge Function 4개 ACTIVE 확인
 - 운영 Supabase secrets 등록 확인 (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_ANON_KEY`, `SUPABASE_DB_URL`, `RESEND_API_KEY`, `MAIL_FROM`, `ADMIN_NOTIFICATION_EMAIL`)
 - 운영 DB RLS 보강 SQL 실행 완료
+- 운영 DB Data API GRANT 보강 마이그레이션 적용 완료
 - RLS 목표 상태:
   - `contact_inquiries` 직접 anon/authenticated 접근 차단
   - `works_categories` select만 공개 허용
   - `works_images` visible row select만 공개 허용
   - Works 쓰기/수정/삭제와 문의 저장/알림 갱신은 service role Edge Function 전용
+- Supabase 2026 Data API 권한 변경 대응 기준:
+  - public schema 테이블은 명시적인 GRANT를 마이그레이션에 포함
+  - 공개 렌더링 테이블은 anon/authenticated `select`만 허용
+  - 개인정보/내부 운영 테이블은 service_role 전용 유지
 
 ### Contact
 - 로컬 기준 `contact_inquiries` DB 저장 확인
@@ -97,8 +104,26 @@
 - Supabase Dashboard SQL Editor로 RLS 보강 SQL 실행 완료
 - anon 키로 `contact_inquiries` 조회 시 `permission denied for table contact_inquiries` 확인
 - anon 키로 `works_categories`, `works_images` 공개 조회 정상 확인
-- 남은 것:
-  - [ ] Supabase Security Advisor 경고 해소 확인
+- 운영 권한 조회에서 기존 기본 권한 일부(`REFERENCES`, `TRIGGER`, `TRUNCATE`)가 works 테이블 anon/authenticated에 남아 있음을 확인
+- `202605140001_lock_public_data_api_grants.sql`로 `revoke all` 후 필요한 `select`만 재부여하도록 보강
+- 운영 적용 후 권한 재조회 확인:
+  - `contact_inquiries`: service_role만 접근
+  - `works_categories`: anon/authenticated `select`만 접근
+  - `works_images`: anon/authenticated `select`만 접근
+- 운영 REST 재확인 완료:
+  - anon 키로 `contact_inquiries` 조회 시 `permission denied for table contact_inquiries`
+  - anon 키로 `works_categories`, `works_images` 공개 조회 정상
+- Supabase migration history가 로컬과 원격 모두 `202605140001`까지 일치함
+- Supabase Security Advisor 재실행 결과 `No issues found` 확인
+
+### Supabase Storage 보안
+- Security Advisor에서 `public_bucket_allows_listing` 경고 확인:
+  - public bucket `works`에 broad `storage.objects` SELECT policy 존재
+- 공개 이미지 URL 접근은 유지하되 bucket 전체 객체 목록 조회는 필요 없으므로 `Public Read  1vgtc2_0` policy 제거 마이그레이션 추가
+- `202605140002_restrict_works_storage_listing.sql` 운영 DB 적용 완료
+- Security Advisor 재확인 결과 `No issues found`
+- 공개 이미지 URL 접근 정상 확인 (`/storage/v1/object/public/works/portrait/portrait_001.jpg` → 200)
+- anon 키 기반 Storage object list 호출은 파일 목록을 반환하지 않음
 
 ### Supabase Edge Functions
 - 운영 함수 목록 ACTIVE 확인:
