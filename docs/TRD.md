@@ -11,6 +11,7 @@
 ## 실행 구조
 
 - 정적 HTML 페이지가 공개 사이트를 구성한다.
+- `food-photo.html`은 Vercel clean URL 기준 `/food-photo`로 접근하는 공개 광고용 랜딩이다.
 - `main.js`, `works/*.js`, `analytics.js`, `public-config.js`가 브라우저 동작을 담당한다.
 - Works 이미지는 Supabase Storage와 Edge Function/REST 호출로 렌더링한다.
 - Contact 제출은 Supabase Edge Function을 통해 저장과 메일 발송을 처리한다.

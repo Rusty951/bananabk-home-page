@@ -31,6 +31,7 @@
 
 - Home, About, Contact
 - Works 허브와 Product/Food/Dessert/Space/Portrait 상세
+- 푸드 촬영 광고용 단일 랜딩 (`/food-photo`)
 - Environment Portrait 비공개 페이지
 - Supabase Storage 기반 Works 이미지 렌더링
 - Contact 문의 저장과 관리자 메일 발송
@@ -58,4 +59,5 @@
 - 작업 기준 원본: `../PROJECT_GUIDE.md`
 - 현재 상태 원본: `../PROJECT_STATUS.md`
 - 공개 페이지: `../index.html`, `../about.html`, `../contact.html`, `../works/`
+- 광고용 랜딩: `../food-photo.html`
 - 내부 운영 페이지: `../works/upload.html`, `../works/manage.html`, `../works/portrait-private.html`

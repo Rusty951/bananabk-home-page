@@ -1,7 +1,7 @@
 # PROJECT GUIDE — Banana Black Website
 
 > 다음 작업 전에 먼저 읽는 기준 문서입니다.
-> 마지막 업데이트: 2026-04-27
+> 마지막 업데이트: 2026-05-21
 
 ## 프로젝트 목적
 
@@ -19,6 +19,7 @@
 | `index.html` | 홈 |
 | `about.html` | 소개 |
 | `contact.html` | 문의 |
+| `food-photo.html` | 푸드 촬영 광고용 단일 랜딩 |
 | `works/index.html` | Works 허브 |
 | `works/product.html` | Product 상세 |
 | `works/food.html` | Food 상세 |
@@ -37,6 +38,7 @@
 - `upload / manage / portrait-private`는 공개 메뉴 / 푸터 / CTA에 노출하지 않음
 - URL 직접 접근 전용으로만 유지
 - `works/portrait-private.html`, `works/upload.html`, `works/manage.html`에는 `noindex, nofollow` 적용
+- `food-photo.html`은 같은 도메인의 공개 광고용 랜딩이며, 기존 `works/food.html` 포트폴리오 역할을 대체하지 않음
 
 ---
 

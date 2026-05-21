@@ -1,6 +1,6 @@
 # PROJECT STATUS — Banana Black Website
 
-> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-05-14 (Supabase Data API explicit GRANT 대응)
+> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-05-21 (푸드 촬영 광고 랜딩 추가)
 
 ---
 
@@ -24,6 +24,12 @@
 - 각 페이지 상단에 카테고리별 랜딩 카피 + 카카오톡 문의 CTA 추가 완료
 - Supabase Storage 이미지 기반 렌더링 구조 완료
 - 로컬 미사용 이미지 39개 삭제 완료 (images/works/ 정리)
+
+### 광고용 랜딩
+- `food-photo.html` 추가 완료
+- Vercel clean URL 기준 `/food-photo` 공개 광고 랜딩으로 사용
+- 기존 `/works/food`는 포트폴리오 페이지 역할로 유지
+- 랜딩 CTA는 카카오톡 문의 중심으로 구성
 
 ### 모바일 UX
 - 플로팅 카카오톡 문의 버튼 위치 고정 (bottom-right)

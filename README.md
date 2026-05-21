@@ -42,6 +42,7 @@ rg --files -g '*.js' -g 'supabase/functions/*/index.ts' -g '!node_modules' -g '!
 - AI 작업 규칙: `AGENTS.md`
 - 운영 원본: `PROJECT_GUIDE.md`, `PROJECT_STATUS.md`, `PRD.md`
 - 배포 설정: `vercel.json`, `.vercelignore`
+- 광고용 랜딩: `food-photo.html` (`/food-photo`)
 - Supabase 설정과 함수: `supabase/config.toml`, `supabase/functions/`
 
 ## 유지 규칙
@@ -49,6 +50,8 @@ rg --files -g '*.js' -g 'supabase/functions/*/index.ts' -g '!node_modules' -g '!
 기술 스택, 구조, 검증 명령, 제품 범위가 바뀌면 관련 문서를 함께 갱신한다.
 
 공개 페이지와 내부 운영 페이지를 섞지 않는다. `works/upload.html`, `works/manage.html`, `works/portrait-private.html`는 공개 메뉴, 푸터, CTA에 노출하지 않는다.
+
+`food-photo.html`은 광고 직접 유입용 공개 랜딩이며, `/works/food`는 포트폴리오 페이지 역할로 유지한다.
 
 문서와 Supabase 소스는 Vercel 배포 번들에서 제외한다.
 

@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('main-header');
+    const isFoodPhotoPage = document.body.classList.contains('food-photo-page');
     const publicConfig = window.BANANABK_PUBLIC_CONFIG || {};
     
     // GA4: 카카오 문의 버튼 클릭 추적 (이벤트 위임 — 모든 카카오 링크 공통)
@@ -22,10 +23,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Header scroll effect
     const handleScroll = () => {
-        if (window.scrollY > 50) {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+        if (scrollTop > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
+        }
+
+        if (isFoodPhotoPage) {
+            const revealPoint = Math.min(window.innerHeight * 0.72, 620);
+            document.body.classList.toggle('food-photo-fixed-cta-visible', scrollTop > revealPoint);
         }
     };
 
