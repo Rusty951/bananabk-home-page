@@ -100,8 +100,10 @@
 ## 진행 중 / 보류
 
 ### Vercel 배포
-- 정적 사이트 배포 미완료
-- 배포 설정 파일 추가 완료 (`vercel.json`)
+- `main` 브랜치 연동 정적 사이트 운영 배포 완료
+- 운영 도메인: `https://bananabk2425.com`
+- `/food-photo` 광고 랜딩과 WebP 이미지 응답 200 확인 (2026-07-19)
+- 배포 설정 파일 적용 중 (`vercel.json`)
 
 ### Contact 운영 연결
 - 로컬 저장/메일 검증 완료
@@ -166,7 +168,7 @@
 
 ## 다음 작업 순서
 
-1. Vercel 배포 → 공개 URL 확보
+1. Meta Pixel ID 입력 및 GA4 Realtime/DebugView 수신 확인
 2. Resend 도메인 / `MAIL_FROM` 운영 주소 최종 확인
 3. 운영 환경에서 Contact 실제 제출 테스트
 4. Works upload / manage 안정화
@@ -175,4 +177,4 @@
 
 ## 한 줄 요약
 
-공개 사이트는 정적 배포 설정과 모바일 360 / 390 / 430 줄바꿈 QA까지 정리 완료 상태. Supabase 운영 함수·시크릿·RLS는 확인 완료, 실제 Vercel 배포와 Contact 운영 제출 테스트가 남음.
+공개 사이트와 `/food-photo` 광고 랜딩은 Vercel 운영 배포 완료 상태. Supabase 운영 함수·시크릿·RLS는 확인 완료했으며, Meta Pixel 실제 ID 연결과 Contact 운영 제출 테스트가 남음.
