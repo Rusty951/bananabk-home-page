@@ -1,13 +1,13 @@
 # PROJECT GUIDE — Banana Black Website
 
 > 다음 작업 전에 먼저 읽는 기준 문서입니다.
-> 마지막 업데이트: 2026-05-21
+> 마지막 업데이트: 2026-07-19
 
 ## 프로젝트 목적
 
 - 바나나블랙 포트폴리오와 문의 전환용 정적 사이트
 - 기술 스택: HTML / CSS / JavaScript + Supabase (DB + Storage + Edge Functions)
-- Analytics: GA4 (G-2FJCQ8LW6B)
+- Analytics: GA4 (G-2FJCQ8LW6B) + 선택형 Meta Pixel
 
 ---
 
@@ -39,6 +39,9 @@
 - URL 직접 접근 전용으로만 유지
 - `works/portrait-private.html`, `works/upload.html`, `works/manage.html`에는 `noindex, nofollow` 적용
 - `food-photo.html`은 같은 도메인의 공개 광고용 랜딩이며, 기존 `works/food.html` 포트폴리오 역할을 대체하지 않음
+- `/food-photo` 공개 기본 패키지는 `30만 원부터`, 대표 메뉴 최대 5종, 기본 보정본 10컷 기준
+- 촬영 지역과 납기는 랜딩에 공개하지 않으며, 지역은 광고 타기팅과 상담에서 조절
+- Meta Pixel ID는 공개 값인 `public-config.js`의 `metaPixelId`에 입력하고, 설정 전에는 Pixel 스크립트를 불러오지 않음
 
 ---
 
@@ -77,6 +80,7 @@
 
 ### 이미지 전략
 - Works 이미지는 **Supabase Storage** 기반으로 관리
+- 광고 랜딩의 고정 이미지 7장은 초기 로딩을 줄이기 위해 `images/food-photo/*.webp` 로컬 파생본을 사용
 - 로컬 `images/works/`에는 HTML에 직접 hardcode된 5개만 유지:
   - `5cced61b2b11e.jpg` (portrait hero)
   - `30e31ad2d4316.jpg`

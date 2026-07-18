@@ -1,6 +1,6 @@
 # PROJECT STATUS — Banana Black Website
 
-> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-05-21 (푸드 촬영 광고 랜딩 추가)
+> 확인된 내용만 기록합니다. 마지막 업데이트: 2026-07-19 (푸드 촬영 광고 랜딩 광고 전 보완)
 
 ---
 
@@ -18,6 +18,9 @@
 - GA4 연결 완료 (G-2FJCQ8LW6B)
 - 모든 공개 페이지에 `gtag` 삽입 완료
 - `portrait-private` 비공개 포트폴리오 조회 추적 반영 완료
+- 카카오톡 CTA 클릭에 랜딩 UTM과 버튼 위치를 함께 기록하도록 보강
+- Meta Pixel은 `public-config.js`의 `metaPixelId` 설정 시 `/food-photo` 카카오톡 CTA 클릭을 표준 `Contact` 이벤트로 기록
+- 실제 Meta Pixel ID 입력과 GA4 Realtime/DebugView 수신 확인은 미완료
 
 ### Works 상세페이지
 - product / food / dessert / space / portrait 5개 페이지 공개 배포 범위에 포함
@@ -30,6 +33,10 @@
 - Vercel clean URL 기준 `/food-photo` 공개 광고 랜딩으로 사용
 - 기존 `/works/food`는 포트폴리오 페이지 역할로 유지
 - 랜딩 CTA는 카카오톡 문의 중심으로 구성
+- 공개 기본 패키지는 `30만 원부터`, 대표 메뉴 최대 5종, 기본 보정본 10컷 기준
+- 촬영 지역과 납기는 랜딩에 공개하지 않고 상담 및 광고 타기팅에서 관리
+- 히어로와 결과물 6장을 로컬 WebP로 경량화해 합계 약 0.91MB로 축소
+- 결과물 다음에 실제 촬영 경험을 정리한 익명 사례 3개를 신뢰 요소로 추가
 
 ### 모바일 UX
 - 플로팅 카카오톡 문의 버튼 위치 고정 (bottom-right)

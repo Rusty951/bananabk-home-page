@@ -79,6 +79,12 @@ The name should be interpreted as:
 ### One-Line Brand Definition
 A white-based editorial portfolio site with sharp black contrast and a very restrained banana-toned accent.
 
+### Food Photo Advertising Package
+- Landing route: `/food-photo`
+- Public starting price: KRW 300,000
+- Base scope: up to 5 representative menu items and 10 final retouched images
+- Shooting area and delivery schedule are handled through ad targeting and consultation rather than public landing copy
+
 ---
 
 ## 4. Visual Direction

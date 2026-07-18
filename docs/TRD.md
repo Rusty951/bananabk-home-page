@@ -5,7 +5,7 @@
 - Frontend: HTML, CSS, vanilla JavaScript
 - Hosting: Vercel static deployment
 - Backend services: Supabase DB, Storage, Edge Functions
-- Analytics: GA4
+- Analytics: GA4 + 선택형 Meta Pixel
 - Local preview: Python static server
 
 ## 실행 구조
@@ -13,6 +13,8 @@
 - 정적 HTML 페이지가 공개 사이트를 구성한다.
 - `food-photo.html`은 Vercel clean URL 기준 `/food-photo`로 접근하는 공개 광고용 랜딩이다.
 - `main.js`, `works/*.js`, `analytics.js`, `public-config.js`가 브라우저 동작을 담당한다.
+- `analytics.js`는 카카오톡 CTA 클릭의 GA4 UTM/버튼 위치 기록과 `/food-photo`의 Meta `Contact` 이벤트를 담당한다. Meta Pixel은 `public-config.js`에 실제 ID가 있을 때만 로드한다.
+- `food-photo.html`의 고정 이미지 7장은 `images/food-photo/*.webp` 파생본을 사용한다.
 - Works 이미지는 Supabase Storage와 Edge Function/REST 호출로 렌더링한다.
 - Contact 제출은 Supabase Edge Function을 통해 저장과 메일 발송을 처리한다.
 - `vercel.json`은 clean URL과 내부 페이지 검색 제외 헤더를 관리한다.

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isFoodPhotoPage = document.body.classList.contains('food-photo-page');
     const publicConfig = window.BANANABK_PUBLIC_CONFIG || {};
     
-    // GA4: 카카오 문의 버튼 클릭 추적 (이벤트 위임 — 모든 카카오 링크 공통)
+    // GA4 / Meta: 카카오 문의 버튼 클릭 추적 (이벤트 위임 — 모든 카카오 링크 공통)
     document.addEventListener('click', (event) => {
         const link = event.target.closest('a[href*="pf.kakao.com"]');
         if (!link) return;

@@ -1,8 +1,8 @@
 /**
- * Banana Black — GA4 Analytics Utilities
+ * Banana Black — GA4 / Meta Analytics Utilities
  *
- * 역할: GA4 커스텀 이벤트 발화 유틸리티 모음
- * 의존성: gtag (HTML <head>에서 로드된 Google tag 스크립트)
+ * 역할: GA4 커스텀 이벤트와 Meta Pixel 표준 이벤트 발화 유틸리티 모음
+ * 의존성: gtag (HTML <head>), public-config.js
  *
  * 원칙:
  * - localhost / 127.0.0.1 에서는 이벤트를 발화하지 않고 콘솔에만 출력
@@ -17,6 +17,32 @@
         const host = window.location.hostname;
         return host === 'localhost' || host === '127.0.0.1';
     })();
+    const PUBLIC_CONFIG = window.BANANABK_PUBLIC_CONFIG || {};
+    const META_PIXEL_ID = String(PUBLIC_CONFIG.metaPixelId || '').trim();
+
+    function initializeMetaPixel() {
+        if (IS_LOCAL || !META_PIXEL_ID || typeof window.fbq === 'function') {
+            return;
+        }
+
+        const fbq = function () {
+            fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
+        };
+        window.fbq = fbq;
+        window._fbq = fbq;
+        fbq.push = fbq;
+        fbq.loaded = true;
+        fbq.version = '2.0';
+        fbq.queue = [];
+
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        document.head.appendChild(script);
+
+        fbq('init', META_PIXEL_ID);
+        fbq('track', 'PageView');
+    }
 
     /**
      * GA4 이벤트 전송 내부 함수
@@ -49,6 +75,32 @@
             return 'unknown';
         }
     }
+
+    function getLandingAttribution() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            landing_utm_source: params.get('utm_source') || 'direct',
+            landing_utm_medium: params.get('utm_medium') || 'none',
+            landing_utm_campaign: params.get('utm_campaign') || 'none',
+            landing_utm_content: params.get('utm_content') || 'none',
+            landing_utm_term: params.get('utm_term') || 'none'
+        };
+    }
+
+    function trackMetaEvent(eventName, params) {
+        if (IS_LOCAL) {
+            console.log('[Meta Dev]', eventName, params || {});
+            return;
+        }
+
+        if (typeof window.fbq !== 'function') {
+            return;
+        }
+
+        window.fbq('track', eventName, params || {});
+    }
+
+    initializeMetaPixel();
 
     /**
      * 공개 GA 유틸리티 네임스페이스
@@ -84,10 +136,26 @@
          * @param {string} location - 버튼 위치 식별자 ('fixed_cta' | 'inline')
          */
         clickKakaoInquiry: function (href, location) {
-            sendEvent('click_kakao_inquiry', {
-                campaign: parseCampaign(href),
-                button_location: location || 'inline'
-            });
+            const buttonLocation = location || 'inline';
+            const ctaCampaign = parseCampaign(href);
+            const attribution = getLandingAttribution();
+
+            sendEvent('click_kakao_inquiry', Object.assign({
+                cta_campaign: ctaCampaign,
+                button_location: buttonLocation,
+                page_path: window.location.pathname
+            }, attribution));
+
+            if (window.location.pathname === '/food-photo' || window.location.pathname === '/food-photo.html') {
+                trackMetaEvent('Contact', {
+                    content_name: 'food_photo_kakao_inquiry',
+                    content_category: 'food_photo_package',
+                    button_location: buttonLocation,
+                    cta_campaign: ctaCampaign,
+                    landing_utm_campaign: attribution.landing_utm_campaign,
+                    landing_utm_content: attribution.landing_utm_content
+                });
+            }
         },
 
         /**

@@ -32,6 +32,9 @@
 - Home, About, Contact
 - Works 허브와 Product/Food/Dessert/Space/Portrait 상세
 - 푸드 촬영 광고용 단일 랜딩 (`/food-photo`)
+  - 공개 기본 패키지: 30만 원부터, 대표 메뉴 최대 5종, 기본 보정본 10컷 기준
+  - 촬영 지역과 납기는 공개하지 않고 광고 타기팅과 상담에서 관리
+  - 실제 촬영 경험을 바탕으로 정리한 익명 사례 3개를 결과물 다음에 배치
 - Environment Portrait 비공개 페이지
 - Supabase Storage 기반 Works 이미지 렌더링
 - Contact 문의 저장과 관리자 메일 발송
