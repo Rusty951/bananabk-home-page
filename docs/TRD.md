@@ -13,7 +13,8 @@
 - 정적 HTML 페이지가 공개 사이트를 구성한다.
 - `food-photo.html`은 Vercel clean URL 기준 `/food-photo`로 접근하는 공개 광고용 랜딩이다.
 - `main.js`, `works/*.js`, `analytics.js`, `public-config.js`가 브라우저 동작을 담당한다.
-- `analytics.js`는 카카오톡 CTA 클릭의 GA4 UTM/버튼 위치 기록과 `/food-photo`의 Meta `Contact` 이벤트를 담당한다. Meta Pixel은 `public-config.js`에 실제 ID가 있을 때만 로드한다.
+- `analytics.js`는 카카오톡 CTA 클릭의 GA4 UTM/버튼 위치 기록과 `/food-photo`의 Meta `PageView`/`Contact` 이벤트를 담당한다. Meta Pixel은 `public-config.js`에 실제 ID가 있을 때 `/food-photo`에서만 로드한다.
+- `food-photo.html`은 Meta Pixel이 수집할 수 있는 방문·문의 버튼 클릭 범위와 Meta 외부 활동 관리 링크를 화면에 표시한다. 이름·전화번호·문의 내용은 Pixel 이벤트 매개변수에 포함하지 않는다.
 - `food-photo.html`의 고정 이미지 7장은 `images/food-photo/*.webp` 파생본을 사용한다.
 - Works 이미지는 Supabase Storage와 Edge Function/REST 호출로 렌더링한다.
 - Contact 제출은 Supabase Edge Function을 통해 저장과 메일 발송을 처리한다.

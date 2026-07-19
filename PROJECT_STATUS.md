@@ -19,8 +19,9 @@
 - 모든 공개 페이지에 `gtag` 삽입 완료
 - `portrait-private` 비공개 포트폴리오 조회 추적 반영 완료
 - 카카오톡 CTA 클릭에 랜딩 UTM과 버튼 위치를 함께 기록하도록 보강
-- Meta Pixel은 `public-config.js`의 `metaPixelId` 설정 시 `/food-photo` 카카오톡 CTA 클릭을 표준 `Contact` 이벤트로 기록
-- 실제 Meta Pixel ID 입력과 GA4 Realtime/DebugView 수신 확인은 미완료
+- Meta Pixel ID `1048575747552897`을 로컬 설정에 반영하고, Pixel 로딩과 `PageView`/`Contact` 이벤트 범위를 `/food-photo`로 제한
+- `/food-photo`에 Meta 광고 측정 범위, Pixel 이벤트로 전송하지 않는 정보, Meta 외부 활동 관리 링크를 표시
+- Meta Pixel 운영 배포와 Events Manager 수신 확인, GA4 Realtime/DebugView 수신 확인은 미완료
 
 ### Works 상세페이지
 - product / food / dessert / space / portrait 5개 페이지 공개 배포 범위에 포함
@@ -168,7 +169,7 @@
 
 ## 다음 작업 순서
 
-1. Meta Pixel ID 입력 및 GA4 Realtime/DebugView 수신 확인
+1. Meta Pixel 변경분 운영 배포 후 Events Manager `PageView`/`Contact` 및 GA4 Realtime/DebugView 수신 확인
 2. Resend 도메인 / `MAIL_FROM` 운영 주소 최종 확인
 3. 운영 환경에서 Contact 실제 제출 테스트
 4. Works upload / manage 안정화
@@ -177,4 +178,4 @@
 
 ## 한 줄 요약
 
-공개 사이트와 `/food-photo` 광고 랜딩은 Vercel 운영 배포 완료 상태. Supabase 운영 함수·시크릿·RLS는 확인 완료했으며, Meta Pixel 실제 ID 연결과 Contact 운영 제출 테스트가 남음.
+공개 사이트와 `/food-photo` 광고 랜딩은 Vercel 운영 배포 완료 상태. Meta Pixel ID와 랜딩 전용 측정 안내는 로컬에 반영했으며, 운영 배포 및 Events Manager 수신 확인과 Contact 운영 제출 테스트가 남음.

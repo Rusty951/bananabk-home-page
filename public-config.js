@@ -4,5 +4,5 @@ window.BANANABK_PUBLIC_CONFIG = window.BANANABK_PUBLIC_CONFIG || {
     functionsBaseUrl: '',
     useWorksFunction: false,
     gaMeasurementId: 'G-2FJCQ8LW6B',
-    metaPixelId: ''
+    metaPixelId: '1048575747552897'
 };

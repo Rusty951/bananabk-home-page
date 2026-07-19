@@ -53,7 +53,7 @@ rg --files -g '*.js' -g 'supabase/functions/*/index.ts' -g '!node_modules' -g '!
 
 `food-photo.html`은 광고 직접 유입용 공개 랜딩이며, `/works/food`는 포트폴리오 페이지 역할로 유지한다.
 
-`/food-photo`의 기본 공개 구성은 30만 원부터, 대표 메뉴 최대 5종, 기본 보정본 10컷 기준이다. Meta Pixel은 `public-config.js`에 실제 ID가 설정된 경우에만 로드한다.
+`/food-photo`의 기본 공개 구성은 30만 원부터, 대표 메뉴 최대 5종, 기본 보정본 10컷 기준이다. Meta Pixel은 `public-config.js`에 실제 ID가 설정된 경우 `/food-photo`에서만 로드하며, 랜딩에 광고 측정 안내와 Meta 외부 활동 관리 링크를 표시한다.
 
 문서와 Supabase 소스는 Vercel 배포 번들에서 제외한다.
 

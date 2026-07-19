@@ -41,7 +41,8 @@
 - `food-photo.html`은 같은 도메인의 공개 광고용 랜딩이며, 기존 `works/food.html` 포트폴리오 역할을 대체하지 않음
 - `/food-photo` 공개 기본 패키지는 `30만 원부터`, 대표 메뉴 최대 5종, 기본 보정본 10컷 기준
 - 촬영 지역과 납기는 랜딩에 공개하지 않으며, 지역은 광고 타기팅과 상담에서 조절
-- Meta Pixel ID는 공개 값인 `public-config.js`의 `metaPixelId`에 입력하고, 설정 전에는 Pixel 스크립트를 불러오지 않음
+- Meta Pixel ID는 공개 값인 `public-config.js`의 `metaPixelId`에 입력하며, Pixel 스크립트와 `PageView`/`Contact` 이벤트는 `/food-photo`에서만 사용
+- `/food-photo`에는 Meta의 광고 측정 범위, Pixel 이벤트로 전송하지 않는 정보, Meta 외부 활동 관리 링크를 함께 표시
 
 ---
 

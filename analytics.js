@@ -19,9 +19,10 @@
     })();
     const PUBLIC_CONFIG = window.BANANABK_PUBLIC_CONFIG || {};
     const META_PIXEL_ID = String(PUBLIC_CONFIG.metaPixelId || '').trim();
+    const IS_FOOD_PHOTO_LANDING = window.location.pathname === '/food-photo' || window.location.pathname === '/food-photo.html';
 
     function initializeMetaPixel() {
-        if (IS_LOCAL || !META_PIXEL_ID || typeof window.fbq === 'function') {
+        if (IS_LOCAL || !IS_FOOD_PHOTO_LANDING || !META_PIXEL_ID || typeof window.fbq === 'function') {
             return;
         }
 
@@ -88,6 +89,10 @@
     }
 
     function trackMetaEvent(eventName, params) {
+        if (!IS_FOOD_PHOTO_LANDING) {
+            return;
+        }
+
         if (IS_LOCAL) {
             console.log('[Meta Dev]', eventName, params || {});
             return;
@@ -146,7 +151,7 @@
                 page_path: window.location.pathname
             }, attribution));
 
-            if (window.location.pathname === '/food-photo' || window.location.pathname === '/food-photo.html') {
+            if (IS_FOOD_PHOTO_LANDING) {
                 trackMetaEvent('Contact', {
                     content_name: 'food_photo_kakao_inquiry',
                     content_category: 'food_photo_package',
