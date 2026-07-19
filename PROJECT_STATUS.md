@@ -19,7 +19,7 @@
 - 모든 공개 페이지에 `gtag` 삽입 완료
 - `portrait-private` 비공개 포트폴리오 조회 추적 반영 완료
 - 카카오톡 CTA 클릭에 랜딩 UTM과 버튼 위치를 함께 기록하도록 보강
-- Meta Pixel ID `1048575747552897`을 로컬 설정에 반영하고, Pixel 로딩과 `PageView`/`Contact` 이벤트 범위를 `/food-photo`로 제한
+- Meta Pixel ID `1739349247412196`을 로컬 설정에 반영하고, Pixel 로딩과 `PageView`/`Contact` 이벤트 범위를 `/food-photo`로 제한
 - `/food-photo`에 Meta 광고 측정 범위, Pixel 이벤트로 전송하지 않는 정보, Meta 외부 활동 관리 링크를 표시
 - Meta Pixel 운영 배포와 Events Manager 수신 확인, GA4 Realtime/DebugView 수신 확인은 미완료
 
