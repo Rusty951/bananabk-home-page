@@ -7,7 +7,7 @@
 
 - 바나나블랙 포트폴리오와 문의 전환용 정적 사이트
 - 기술 스택: HTML / CSS / JavaScript + Supabase (DB + Storage + Edge Functions)
-- Analytics: GA4 (G-2FJCQ8LW6B) + 선택형 Meta Pixel
+- Analytics: GA4 (G-2FJCQ8LW6B) + 선택형 Meta Pixel. 둘 다 운영 도메인에서만 초기화
 
 ---
 
@@ -42,6 +42,7 @@
 - `/food-photo` 공개 기본 패키지는 `30만 원부터`, 대표 메뉴 최대 5종, 기본 보정본 10컷 기준
 - 촬영 지역과 납기는 랜딩에 공개하지 않으며, 지역은 광고 타기팅과 상담에서 조절
 - Meta Pixel ID는 공개 값인 `public-config.js`의 `metaPixelId`에 입력하며, Pixel 스크립트와 `PageView`/`Contact` 이벤트는 `/food-photo`에서만 사용
+- GA4와 Meta Pixel 초기화는 `analytics.js` 한 곳에서 관리하며 localhost, `127.0.0.1`, Vercel 미리보기에서는 실행하지 않음
 - `/food-photo`에는 Meta의 광고 측정 범위, Pixel 이벤트로 전송하지 않는 정보, Meta 외부 활동 관리 링크를 함께 표시
 
 ---

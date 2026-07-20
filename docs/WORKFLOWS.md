@@ -41,6 +41,14 @@
 6. 관련 문서나 상태 파일이 바뀌면 갱신한다.
 7. check 명령을 실행한다.
 
+## Analytics Workflow
+
+1. GA4와 Meta Pixel 초기화는 `analytics.js` 한 곳에서 관리한다.
+2. `bananabk2425.com`, `www.bananabk2425.com` 외 호스트에서는 추적 스크립트를 로드하지 않는다.
+3. 카카오 CTA 이벤트명과 UTM·버튼 위치 매개변수를 보존한다.
+4. `analytics.js`를 수정하면 모든 HTML의 캐시 버스팅 버전을 함께 확인한다.
+5. 로컬에서는 Google·Meta 네트워크 요청이 없고 운영 도메인 조건에서는 초기화 코드가 준비되는지 검증한다.
+
 ## Refactor Workflow
 
 1. 리팩터링 의도와 보존해야 할 동작을 한 문장으로 고정한다.

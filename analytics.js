@@ -1,11 +1,12 @@
 /**
  * Banana Black — GA4 / Meta Analytics Utilities
  *
- * 역할: GA4 커스텀 이벤트와 Meta Pixel 표준 이벤트 발화 유틸리티 모음
- * 의존성: gtag (HTML <head>), public-config.js
+ * 역할: 운영 도메인 GA4 초기화, 커스텀 이벤트와 Meta Pixel 표준 이벤트 발화
+ * 의존성: public-config.js
  *
  * 원칙:
- * - localhost / 127.0.0.1 에서는 이벤트를 발화하지 않고 콘솔에만 출력
+ * - 운영 도메인 외 환경에서는 GA4 / Meta Pixel을 로드하지 않음
+ * - 로컬에서는 커스텀 이벤트를 발화하지 않고 콘솔에만 출력
  * - window.gtag 가 없으면 조용히 무시
  * - 기존 Supabase / main.js 기능과 완전 독립
  */
@@ -13,16 +14,34 @@
 (function () {
     'use strict';
 
-    const IS_LOCAL = (function () {
-        const host = window.location.hostname;
-        return host === 'localhost' || host === '127.0.0.1';
-    })();
+    const GA_MEASUREMENT_ID = 'G-2FJCQ8LW6B';
+    const PRODUCTION_TRACKING_HOSTS = ['bananabk2425.com', 'www.bananabk2425.com'];
+    const IS_PRODUCTION_TRACKING_HOST = PRODUCTION_TRACKING_HOSTS.includes(window.location.hostname);
+    const IS_LOCAL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     const PUBLIC_CONFIG = window.BANANABK_PUBLIC_CONFIG || {};
     const META_PIXEL_ID = String(PUBLIC_CONFIG.metaPixelId || '').trim();
     const IS_FOOD_PHOTO_LANDING = window.location.pathname === '/food-photo' || window.location.pathname === '/food-photo.html';
 
+    function initializeGoogleAnalytics() {
+        if (!IS_PRODUCTION_TRACKING_HOST || typeof window.gtag === 'function') {
+            return;
+        }
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+            window.dataLayer.push(arguments);
+        };
+        window.gtag('js', new Date());
+        window.gtag('config', GA_MEASUREMENT_ID);
+
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+        document.head.appendChild(script);
+    }
+
     function initializeMetaPixel() {
-        if (IS_LOCAL || !IS_FOOD_PHOTO_LANDING || !META_PIXEL_ID || typeof window.fbq === 'function') {
+        if (!IS_PRODUCTION_TRACKING_HOST || !IS_FOOD_PHOTO_LANDING || !META_PIXEL_ID || typeof window.fbq === 'function') {
             return;
         }
 
@@ -51,8 +70,10 @@
      * @param {Object} [params]
      */
     function sendEvent(eventName, params) {
-        if (IS_LOCAL) {
-            console.log('[GA4 Dev]', eventName, params || {});
+        if (!IS_PRODUCTION_TRACKING_HOST) {
+            if (IS_LOCAL) {
+                console.log('[GA4 Dev]', eventName, params || {});
+            }
             return;
         }
 
@@ -93,8 +114,10 @@
             return;
         }
 
-        if (IS_LOCAL) {
-            console.log('[Meta Dev]', eventName, params || {});
+        if (!IS_PRODUCTION_TRACKING_HOST) {
+            if (IS_LOCAL) {
+                console.log('[Meta Dev]', eventName, params || {});
+            }
             return;
         }
 
@@ -105,6 +128,7 @@
         window.fbq('track', eventName, params || {});
     }
 
+    initializeGoogleAnalytics();
     initializeMetaPixel();
 
     /**

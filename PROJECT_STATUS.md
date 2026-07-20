@@ -17,6 +17,7 @@
 ### Analytics
 - GA4 연결 완료 (G-2FJCQ8LW6B)
 - 모든 공개 페이지에 `gtag` 삽입 완료
+- GA4 초기화를 `analytics.js`로 통합하고 운영 도메인에서만 실행하도록 변경해 로컬·미리보기 PageView 수집을 차단
 - `portrait-private` 비공개 포트폴리오 조회 추적 반영 완료
 - 카카오톡 CTA 클릭에 랜딩 UTM과 버튼 위치를 함께 기록하도록 보강
 - Meta Pixel ID `1739349247412196`을 운영 배포하고, Pixel 로딩과 `PageView`/`Contact` 이벤트 범위를 `/food-photo`로 제한

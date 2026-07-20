@@ -55,6 +55,8 @@ rg --files -g '*.js' -g 'supabase/functions/*/index.ts' -g '!node_modules' -g '!
 
 `/food-photo`의 기본 공개 구성은 30만 원부터, 대표 메뉴 최대 5종, 기본 보정본 10컷 기준이다. Meta Pixel은 `public-config.js`에 실제 ID가 설정된 경우 `/food-photo`에서만 로드하며, 랜딩에 광고 측정 안내와 Meta 외부 활동 관리 링크를 표시한다.
 
+GA4와 Meta Pixel은 `analytics.js`에서 초기화하며 `bananabk2425.com`, `www.bananabk2425.com` 운영 도메인에서만 실행한다. localhost, `127.0.0.1`, Vercel 미리보기는 수집하지 않는다.
+
 문서와 Supabase 소스는 Vercel 배포 번들에서 제외한다.
 
 ## 현재 상태
